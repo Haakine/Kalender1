@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="{{CSP}}">
+<meta name="color-scheme" content="light dark">
+<title>Hendelseskalender</title>
+<style>{{STYLE}}</style>
+</head>
+<body>
+<main>
+  <header class="top">
+    <h1>Hendelseskalender</h1>
+    <p class="lede">Rentemøter og økonomitall rett i Apple Kalender. Trykk <strong>Abonner</strong>, så legger datoene seg i en egen kalender som du kan slå av og på.</p>
+  </header>
+
+  <noscript><p class="notice">Uten JavaScript får du ikke abonnementsknappene. Last ned .ics-filene under, eller åpne siden med JavaScript på.</p></noscript>
+
+  {{FEEDS}}
+
+  <section class="howto">
+    <h2>Slik fungerer abonnementet</h2>
+    <p>På iPhone, iPad og Mac åpner <em>Abonner</em> Kalender-appen og spør om du vil legge til kalenderen. Apple henter nye datoer av seg selv, vanligvis med noen timers mellomrom.</p>
+    <p>Du kan fjerne abonnementet når som helst i Kalender-appen. Siden samler ikke inn noe om deg.</p>
+  </section>
+
+  <footer>
+    <p>Siden ble bygget {{BUILT}}. Dobbeltsjekk viktige tidspunkter hos kilden før du handler på dem.</p>
+  </footer>
+</main>
+
+<script type="application/json" id="events">{{EVENTS}}</script>
+<script>{{SCRIPT}}</script>
+</body>
+</html>
