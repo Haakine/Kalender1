@@ -2,15 +2,19 @@
 
 Abonnerbare kalendere (`.ics`) for Apple Kalender, publisert som en gratis, statisk nettside på GitHub Pages.
 
-Første versjon har tre kalendere:
-
 | Kalender | Innhold | Kilde |
 |---|---|---|
+| **Alle hendelser** | Alt under, samlet i én kalender med én farge | alle kildene under |
 | Norges Bank: rentemøter | Rentebeslutninger, og dagene Pengepolitisk rapport kommer | [Norges Banks kalender](https://www.norges-bank.no/aktuelt/kalender/rentemoter/) |
 | Federal Reserve: rentemøter | FOMC-avgjørelser (kl. 14:00 ET) og referatene tre uker senere | [federalreserve.gov](https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm) |
 | SSB: KPI og nøkkeltall | KPI, AKU (arbeidsledighet), produsentprisindeksen, konjunkturtendensene | [SSBs kommende publiseringer](https://www.ssb.no/en/kommende-publiseringer) |
+| Fotball: Norges landslag | Herrelandslagets kamper med avspark i norsk tid | [sportsidioten.no](https://www.sportsidioten.no/fotball/nations-league-2026-2027/) og FotMob |
+| Langrenn: verdenscup, NM og VM | Verdenscuprenn, Tour de Ski, Holmenkollen, NM og ski-VM i Falun | [FIS](https://www.fis-ski.com/cross-country/news/2025-26/tour-de-ski-to-make-french-debut-2026-27-world-cup-calendar-unveiled) og [Norges Skiforbund](https://prod.skiforbundet.no/globalassets/04-gren---medier/langrenn/regler-og-retningslinjer/2026-2027-sesonginformasjoner-langrenn.pdf) |
+| Sjakk: VM og store turneringer | VM-matchen i Genève, parti for parti, og VM i rapid og blitz | [FIDE](https://www.fide.com/salesforce-fide-world-championship-match-2026-schedule-format-and-prize-fund-confirmed/) |
 
 Datoene ble sjekket mot kildene 11. november 2026.
+
+**Velg «Alle hendelser» eller de enkelte, ikke begge.** Abonnerer du på begge, dukker hver hendelse opp to ganger. «Alle» er enklest (én adresse), men har én farge og kan ikke slås av og på per tema. De enkelte kalendrene gir egen farge og av/på per tema.
 
 ## Publiser siden (ca. 10 minutter)
 
@@ -27,32 +31,45 @@ Du trenger en gratis GitHub-konto. Repoet må være **offentlig**: GitHub Pages 
    ```
    Hvis du heller laster opp via nettsiden: mappen `.github` er skjult på Mac og blir lett utelatt. Opprett i så fall filen manuelt med *Add file → Create new file*, sti `.github/workflows/pages.yml`, og lim inn innholdet fra den medfølgende filen.
 3. Gå til **Settings → Pages**, og velg **Source: GitHub Actions**.
-4. Gå til **Actions → Bygg og publiser kalendere → Run workflow**. (Første push kjører den også, men feiler hvis du ikke hadde gjort steg 3 først. Da kjører du den bare på nytt.)
+4. Gå til **Actions → Bygg og publiser kalendere → Run workflow**.
 5. Siden ligger nå på `https://BRUKERNAVN.github.io/kalender/`.
+
+**Ligger prosjektet i en undermappe i repoet** (for eksempel `kalender-feeds/`), må workflowen vite det. Legg da dette under `permissions:` i `pages.yml`, og endre `path: site` til `path: kalender-feeds/site`:
+```yaml
+defaults:
+  run:
+    working-directory: kalender-feeds
+```
 
 ## Abonner
 
-Åpne siden på iPhone, iPad eller Mac og trykk **Abonner i Kalender** på de kalendrene du vil ha. Hver kalender får eget navn og farge, og kan slås av og på uavhengig av de andre. Apple henter nye datoer av seg selv, vanligvis med noen timers mellomrom.
+Åpne siden på iPhone, iPad eller Mac og trykk **Abonner i Kalender** på de kalendrene du vil ha. Apple henter nye datoer av seg selv, vanligvis med noen timers mellomrom.
 
-Manuelt: *Mac: Arkiv → Ny kalenderabonnement*, eller *iPhone: Innstillinger → Kalender → Kontoer → Legg til konto → Annen → Legg til abonnert kalender*. Lim inn adressen `https://BRUKERNAVN.github.io/kalender/ics/norges-bank.ics` (tilsvarende `fed.ics` og `ssb.ics`).
+Manuelt: *Mac: Arkiv → Ny kalenderabonnement*, eller *iPhone: Innstillinger → Kalender → Kontoer → Legg til konto → Annen → Legg til abonnert kalender*. Lim inn adressen `https://BRUKERNAVN.github.io/kalender/ics/alle.ics` (eller `norges-bank.ics`, `fed.ics`, `ssb.ics`, `fotball.ics`, `langrenn.ics`, `sjakk.ics`).
 
 ## Hva oppdateres automatisk, og hva gjør du selv?
 
-Ærlig status for første versjon:
+Ærlig status:
 
-- **Norges Bank:** Byggescriptet prøver å hente datoene fra Norges Banks kalenderside hver gang det kjører (hver mandag, og ved hver endring i repoet). Lykkes ikke hentingen, brukes datoene i `data/norges_bank.json`, og kjøringen feiler ikke. Hentingen er testet mot eksempel-HTML, men ikke mot den levende siden, så se på loggen fra første kjøring i Actions: den sier om datoene stemte eller om siden ikke kunne leses.
-- **Fed og SSB:** Datoene ligger i `data/fed.json` og `data/ssb.json` og oppdateres for hånd. Fed publiserer neste års kalender omtrent ett år i forveien, og 2027-datoene er foreløpige til Fed bekrefter dem. SSBs kalender dekker bare noen måneder frem, så SSB-feeden når til 9. februar 2027.
-- **Varsel når data går tom:** Jobben `freshness` feiler hvis en feed ikke lenger dekker langt nok frem i tid (Norges Bank 60 dager, Fed 90, SSB 21). GitHub sender da vanligvis e-post om feilet kjøring. Du kan skru varslene av og på under dine varslingsinnstillinger på GitHub.
+- **Norges Bank:** Byggescriptet prøver å hente datoene fra Norges Banks kalenderside hver gang det kjører (hver mandag, og ved hver endring i repoet). Lykkes ikke hentingen, brukes datoene i `data/norges_bank.json`, og kjøringen feiler ikke. Hentingen er testet mot eksempel-HTML, men ikke mot den levende siden. Se på loggen fra en kjøring i Actions: den sier om datoene stemte eller om siden ikke kunne leses.
+- **Alt annet oppdateres for hånd** i filene i `data/`. Det gjelder Fed, SSB og all sport. Sportskalenderne er sesongbaserte, og ingen åpne kilder jeg har verifisert gir dem som maskinlesbar feed.
+- **Varsel når data går tom:** Jobben `freshness` feiler hvis Norges Bank, Fed eller SSB ikke lenger dekker langt nok frem (60, 90 og 21 dager). GitHub sender da vanligvis e-post om feilet kjøring. Sportsfeedene sjekkes ikke, siden de naturlig går tom mellom sesongene.
 
 For å oppdatere en datafil: rediger den på github.com (blyantikonet), lagre, og siden bygges på nytt av seg selv.
 
+## Hva er usikkert i sportsdataene?
+
+- **Fotball:** Bare kampene som er publisert så langt er med (14. og 17. november 2026, to uavhengige kilder er enige). Nye landskamper må legges inn i `data/fotball.json` når datoene er klare.
+- **Langrenn, verdenscup:** Dette er FIS' *foreslåtte* kalender fra mai 2026, som var avhengig av godkjenning i FIS-rådet. Jeg fant ikke en bekreftelse på at den ble vedtatt uendret. Renn legges inn som heldagshendelser, siden starttider ikke er publisert.
+- **Langrenn, NM:** Datoene kommer fra Skiforbundets sesonginformasjon. NM-stafetten på Konnerud mangler fordi datoen ikke er oppgitt. Dokumentet oppgir 5 km/10 km på Hovden både som «lørdag 2. april» og «fredag 2. april». 2. april 2027 er en fredag, så jeg har brukt fredag.
+- **Langrenn, VM:** Mesterskapet 24. februar–7. mars 2027 er bekreftet. Dagsprogram og starttider er ikke publisert, så det ligger inne som én hendelse over hele perioden.
+- **Sjakk:** Partidatoene i VM-matchen (24. november–11. desember, omkamper 12. desember) kommer fra FIDE og en gjengivelse av tidsplanen. FIDE endret datoene for matchen i høst, og dette er de nye. Starttid for partiene er ikke oppgitt. **Tata Steel og Norway Chess 2027 er ikke med**, fordi jeg ikke fant bekreftede datoer. Legg dem til i `data/sjakk.json` under `events` når de er klare.
+
 ## Legge til en ny kilde
 
-1. Lag en modul i `calfeeds/sources/` med en `build_events(data)`-funksjon som returnerer `Event`-objekter (se `fed.py` som mal).
+1. Lag en modul i `calfeeds/sources/` med en `build_events(data)`-funksjon som returnerer `Event`-objekter (se `fed.py` for hendelser med klokkeslett og `sjakk.py` for heldagshendelser).
 2. Legg en datafil i `data/`.
-3. Registrer feeden i `calfeeds/feeds.py`.
-
-Neste kilder på planen: sport (landslaget i fotball, langrenn, sjakk) og varsler om forskningsrapporter.
+3. Registrer feeden i `calfeeds/feeds.py`. Samlekalenderen «Alle hendelser» tar den med automatisk.
 
 ## Trygghet og personvern
 
@@ -60,7 +77,7 @@ Neste kilder på planen: sport (landslaget i fotball, langrenn, sjakk) og varsle
 - Ingen hemmeligheter i koden. Kildene er offentlige sider og krever ingen API-nøkler.
 - All tekst går gjennom escape og filtrering før den skrives i `.ics`-filene, så innhold fra en kilde ikke kan lage egne kalenderlinjer.
 - Hendelsene er merket som «ledig», så de ikke gjør deg opptatt i kalenderen din.
-- Siden har en streng innholdspolicy (CSP): ingen eksterne skript, skrifttyper eller bilder, og kun nøyaktig det innebygde skriptet får kjøre.
+- Siden har en streng innholdspolicy (CSP): ingen eksterne skript, skrifttyper eller bilder, og kun nøyaktig det innebygde skriptet og stilarket får kjøre.
 - Prosjektet bruker bare Pythons standardbibliotek, så det er ingen avhengigheter å holde oppdatert. Hvis du vil stramme inn ytterligere, kan du låse GitHub Actions-stegene i `pages.yml` til commit-hasher og slå på Dependabot.
 
 ## Lokal kjøring
@@ -77,4 +94,5 @@ Krever Python 3.9 eller nyere. Åpne `site/index.html` i nettleseren for å se s
 
 - Kalenderfeeder er enveis: Apple Kalender leser dem, men du kan ikke redigere hendelsene.
 - Endringer i siste liten vises først når Apple henter feeden på nytt, ofte etter noen timer.
+- Heldagshendelser (rennene, sjakkpartiene) har ikke klokkeslett. Når starttidene publiseres, kan de legges inn som vanlige hendelser.
 - Tidspunkt: Norges Bank kl. 10:00 og SSB kl. 08:00 norsk tid, Fed kl. 14:00 amerikansk østkysttid. Kalenderen viser alt i din egen tidssone. USA og Norge bytter til sommertid på ulike datoer, så tidsforskjellen er én time kortere i noen uker i mars og oktober/november. Dette er håndtert i koden.

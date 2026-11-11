@@ -2,12 +2,20 @@
 
 from __future__ import annotations
 
+import re
+import unicodedata
 from datetime import date
 
 _MONTHS = [
     "jan.", "feb.", "mars", "apr.", "mai", "juni",
     "juli", "aug.", "sep.", "okt.", "nov.", "des.",
 ]
+
+
+def slug(text: str) -> str:
+    """«Les Rousses (Tour de Ski)» -> «les-rousses-tour-de-ski», brukes i UID-er."""
+    ascii_text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
+    return re.sub(r"[^a-z0-9]+", "-", ascii_text.lower()).strip("-")
 
 
 def nb_date(d: date) -> str:

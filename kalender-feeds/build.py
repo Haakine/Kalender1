@@ -19,7 +19,7 @@ import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
-from calfeeds.feeds import FEEDS, load_data
+from calfeeds.feeds import FEEDS, GROUP_ORDER, load_data
 from calfeeds.fmt import nb_date
 from calfeeds.ics import Event, render_calendar
 
@@ -28,21 +28,32 @@ TEMPLATES = ROOT / "templates"
 
 
 def collect(today: date, offline: bool):
+    """Returnerer ([(feed, data, events)], notater). Samlefeeden bygges til slutt av de andre."""
     results = []
     notes: list[str] = []
+    everything: list[Event] = []
     for feed in FEEDS:
+        if feed.combined:
+            continue
         data = load_data(feed)
         if not offline and hasattr(feed.module, "refresh"):
             data, feed_notes = feed.module.refresh(data, today)
             notes += feed_notes
-        results.append((feed, data, feed.module.build_events(data)))
+        events = feed.module.build_events(data)
+        everything += events
+        results.append((feed, data, events))
+    for feed in FEEDS:
+        if feed.combined:
+            results.append((feed, {}, list(everything)))
     return results, notes
 
 
 def stale_problems(results, today: date) -> list[str]:
     problems = []
     for feed, _data, events in results:
-        last = max(e.start for e in events).date()
+        if feed.min_horizon_days is None or not events:
+            continue
+        last = max(e.end_dt for e in events).date()
         needed = today + timedelta(days=feed.min_horizon_days)
         if last < needed:
             problems.append(
@@ -57,13 +68,41 @@ def _sha256_csp(text: str) -> str:
     return "'sha256-" + base64.b64encode(digest).decode("ascii") + "'"
 
 
+# Kortene har kilden i overskriften, så disse prefiksene fjernes i visningen der.
+# «Sjakk-VM: » og «Langrenn verdenscup, Ruka: » fjernes ikke, de bærer informasjon.
+_REDUNDANT_PREFIXES = ("Norges Bank: ", "Fed: ", "SSB: ", "Fotball: ", "Sjakk: ")
+
+
+def short_title(summary: str) -> str:
+    for prefix in _REDUNDANT_PREFIXES:
+        if summary.startswith(prefix):
+            return summary[len(prefix):]
+    return summary
+
+
+def _event_payload(e: Event) -> dict:
+    base = {"title": e.summary, "short": short_title(e.summary)}
+    if e.all_day:
+        return {
+            **base,
+            "allDay": True,
+            "start": e.start.isoformat(),
+            "end": (e.start + e.duration).isoformat(),  # eksklusiv
+        }
+    return {
+        **base,
+        "allDay": False,
+        "start": e.start.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+    }
+
+
 def _events_json(results, now: datetime) -> str:
     cutoff = now - timedelta(days=1)
     payload = {
         feed.id: [
-            {"start": e.start.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "title": e.summary}
-            for e in sorted(events, key=lambda e: e.start)
-            if e.start >= cutoff
+            _event_payload(e)
+            for e in sorted(events, key=lambda e: (e.start_dt, e.uid))
+            if e.end_dt >= cutoff
         ]
         for feed, _data, events in results
     }
@@ -73,15 +112,23 @@ def _events_json(results, now: datetime) -> str:
 
 def _feed_card(feed, data) -> str:
     e = html.escape
+    parts = []
     verified = data.get("verified")
-    verified_text = f"Datoene ble sjekket mot kilden {nb_date(date.fromisoformat(verified))}." if verified else ""
-    note = data.get("coverage_note", "")
-    extra = " ".join(x for x in (verified_text, note) if x)
+    if verified:
+        parts.append(f"Datoene ble sjekket mot kilden {nb_date(date.fromisoformat(verified))}.")
+    if data.get("coverage_note"):
+        parts.append(data["coverage_note"])
+    extra = " ".join(parts)
+
+    source = ""
+    if feed.source_url:
+        source = f'<p class="source">Kilde: <a href="{e(feed.source_url)}">{e(feed.source_label)}</a>. {e(extra)}</p>'
+
     return f"""
     <section class="feed" data-feed="{e(feed.id)}">
       <div class="leaf" aria-hidden="true"><span class="leaf-day js-day">–</span><span class="leaf-month js-month"></span></div>
       <div class="feed-main">
-        <h2>{e(feed.name)}</h2>
+        <h3>{e(feed.name)}</h3>
         <p class="what">{e(feed.description)}</p>
         <p class="next js-next">Neste dato lastes inn …</p>
         <div class="actions">
@@ -93,9 +140,20 @@ def _feed_card(feed, data) -> str:
           <summary>Kommende datoer</summary>
           <ul class="upcoming js-upcoming"></ul>
         </details>
-        <p class="source">Kilde: <a href="{e(feed.source_url)}">{e(feed.source_label)}</a>. {e(extra)}</p>
+        {source}
       </div>
     </section>"""
+
+
+def _feeds_html(results) -> str:
+    out = []
+    for group in GROUP_ORDER:
+        cards = [(f, d) for f, d, _e in results if f.group == group]
+        if not cards:
+            continue
+        out.append(f'\n  <h2 class="group">{html.escape(group)}</h2>')
+        out.extend(_feed_card(f, d) for f, d in cards)
+    return "".join(out)
 
 
 def _stylesheet(results) -> str:
@@ -135,7 +193,7 @@ def write_site(results, out: Path, now: datetime) -> None:
     page = (
         page.replace("{{CSP}}", html.escape(csp, quote=True))
         .replace("{{STYLE}}", style)
-        .replace("{{FEEDS}}", "".join(_feed_card(f, d) for f, d, _e in results))
+        .replace("{{FEEDS}}", _feeds_html(results))
         .replace("{{EVENTS}}", _events_json(results, now))
         .replace("{{SCRIPT}}", script)
         .replace("{{BUILT}}", nb_date(now.date()))

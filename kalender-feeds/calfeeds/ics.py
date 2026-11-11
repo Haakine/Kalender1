@@ -8,21 +8,46 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, time, timedelta, timezone
+from zoneinfo import ZoneInfo
 
 CRLF = "\r\n"
 _CONTROL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
 _HEX_COLOR = re.compile(r"^#[0-9A-Fa-f]{6}$")
+_OSLO = ZoneInfo("Europe/Oslo")
+_ONE_DAY = timedelta(days=1)
 
 
 @dataclass(frozen=True)
 class Event:
+    """En hendelse.
+
+    start er enten et tidssone-bevisst datetime (hendelse med klokkeslett),
+    eller en ren date (heldagshendelse). For heldagshendelser er duration et
+    helt antall dager, så en hendelse som varer 24.–26. feb. har duration 3 dager.
+    """
+
     uid: str
-    start: datetime  # må være tidssone-bevisst
+    start: datetime | date
     duration: timedelta
     summary: str
     description: str = ""
     url: str = ""
+
+    @property
+    def all_day(self) -> bool:
+        return not isinstance(self.start, datetime)
+
+    @property
+    def start_dt(self) -> datetime:
+        """Starttidspunkt som datetime, også for heldagshendelser (midnatt norsk tid)."""
+        if self.all_day:
+            return datetime.combine(self.start, time.min, tzinfo=_OSLO)
+        return self.start
+
+    @property
+    def end_dt(self) -> datetime:
+        return self.start_dt + self.duration
 
 
 def escape_text(text: str) -> str:
@@ -62,14 +87,20 @@ def format_utc(moment: datetime) -> str:
 
 
 def _event_lines(event: Event, now: datetime) -> list[str]:
-    lines = [
-        "BEGIN:VEVENT",
-        f"UID:{escape_text(event.uid)}",
-        f"DTSTAMP:{format_utc(now)}",
-        f"DTSTART:{format_utc(event.start)}",
-        f"DTEND:{format_utc(event.start + event.duration)}",
-        f"SUMMARY:{escape_text(event.summary)}",
-    ]
+    lines = ["BEGIN:VEVENT", f"UID:{escape_text(event.uid)}", f"DTSTAMP:{format_utc(now)}"]
+    if event.all_day:
+        if event.duration < _ONE_DAY or event.duration % _ONE_DAY:
+            raise ValueError("Heldagshendelser må vare et helt antall dager")
+        lines += [
+            f"DTSTART;VALUE=DATE:{event.start:%Y%m%d}",
+            f"DTEND;VALUE=DATE:{event.start + event.duration:%Y%m%d}",  # slutt er eksklusiv
+        ]
+    else:
+        lines += [
+            f"DTSTART:{format_utc(event.start)}",
+            f"DTEND:{format_utc(event.start + event.duration)}",
+        ]
+    lines.append(f"SUMMARY:{escape_text(event.summary)}")
     if event.description:
         lines.append(f"DESCRIPTION:{escape_text(event.description)}")
     if event.url:
@@ -110,7 +141,7 @@ def render_calendar(
         f"REFRESH-INTERVAL;VALUE=DURATION:PT{refresh_hours}H",
         f"X-PUBLISHED-TTL:PT{refresh_hours}H",
     ]
-    for event in sorted(events, key=lambda e: (e.start, e.uid)):
+    for event in sorted(events, key=lambda e: (e.start_dt, e.uid)):
         lines += _event_lines(event, now)
     lines.append("END:VCALENDAR")
     return CRLF.join(fold(line) for line in lines) + CRLF

@@ -92,13 +92,19 @@ class Timezones(unittest.TestCase):
         self.assertEqual(self.utc(ev), datetime(2027, 1, 11, 7, 0, tzinfo=UTC))
 
 
+SOURCE_FEEDS = [f for f in FEEDS if not f.combined]
+ECONOMY_IDS = {"norges-bank", "fed", "ssb"}
+
+
 class DataSanity(unittest.TestCase):
     def test_uids_unique_across_all_feeds(self):
-        uids = [e.uid for f in FEEDS for e in f.module.build_events(load_data(f))]
+        uids = [e.uid for f in SOURCE_FEEDS for e in f.module.build_events(load_data(f))]
         self.assertEqual(len(uids), len(set(uids)))
 
-    def test_all_events_on_weekdays(self):
-        for feed in FEEDS:
+    def test_economy_events_on_weekdays(self):
+        for feed in SOURCE_FEEDS:
+            if feed.id not in ECONOMY_IDS:
+                continue  # sport kan ligge i helgene
             for e in feed.module.build_events(load_data(feed)):
                 local = e.start.astimezone(ZoneInfo("Europe/Oslo")).date()
                 self.assertLess(e.start.weekday(), 5, f"{e.uid} faller i helgen")
@@ -125,13 +131,86 @@ class DataSanity(unittest.TestCase):
             self.assertIn(item["series"], ssb.SERIES)
 
     def test_feeds_render_with_every_event(self):
-        for feed in FEEDS:
+        for feed in SOURCE_FEEDS:
             events = feed.module.build_events(load_data(feed))
             text = ics.render_calendar(
                 name=feed.name, description=feed.description, events=events, color=feed.color, now=NOW
             )
             self.assertEqual(text.count("BEGIN:VEVENT"), len(events))
             self.assertEqual(text.count("END:VEVENT"), len(events))
+
+    def test_combined_feed_contains_every_event_once(self):
+        results, _ = build.collect(date(2026, 11, 11), offline=True)
+        by_id = {feed.id: events for feed, _d, events in results}
+        expected = sorted(e.uid for f in SOURCE_FEEDS for e in by_id[f.id])
+        self.assertEqual(sorted(e.uid for e in by_id["alle"]), expected)
+        self.assertGreater(len(expected), 60)
+
+
+class AllDayEvents(unittest.TestCase):
+    def render(self, event):
+        return ics.render_calendar(name="n", description="d", events=[event], color="#112233", now=NOW)
+
+    def test_all_day_uses_date_values_with_exclusive_end(self):
+        e = ics.Event("a@b", date(2027, 2, 24), timedelta(days=12), "VM")
+        text = self.render(e)
+        self.assertIn("DTSTART;VALUE=DATE:20270224", text)
+        self.assertIn("DTEND;VALUE=DATE:20270308", text)
+
+    def test_all_day_must_be_whole_days(self):
+        with self.assertRaises(ValueError):
+            self.render(ics.Event("a@b", date(2027, 1, 1), timedelta(hours=5), "x"))
+        with self.assertRaises(ValueError):
+            self.render(ics.Event("a@b", date(2027, 1, 1), timedelta(days=1, hours=1), "x"))
+
+    def test_mixed_events_sort_without_error(self):
+        events = [
+            ics.Event("a@b", date(2026, 12, 2), timedelta(days=1), "heldag"),
+            ics.Event("b@b", datetime(2026, 12, 2, 8, 0, tzinfo=UTC), timedelta(hours=1), "tid"),
+        ]
+        text = ics.render_calendar(name="n", description="d", events=events, color="#112233", now=NOW)
+        self.assertEqual(text.count("BEGIN:VEVENT"), 2)
+
+
+class SportFeeds(unittest.TestCase):
+    def test_football_kickoff_times_in_utc(self):
+        events = {e.uid: e for e in events_of("fotball")}
+        wales = events["fotball-2026-11-14-norge-wales@kalender-feeds"]
+        self.assertEqual(wales.start.astimezone(UTC), datetime(2026, 11, 14, 17, 0, tzinfo=UTC))
+        denmark = events["fotball-2026-11-17-danmark-norge@kalender-feeds"]
+        self.assertEqual(denmark.start.astimezone(UTC), datetime(2026, 11, 17, 19, 45, tzinfo=UTC))
+        self.assertIn("Hjemmekamp", wales.description)
+        self.assertIn("Bortekamp", denmark.description)
+
+    def test_world_championship_has_14_games_and_none_on_rest_days(self):
+        games = [e for e in events_of("sjakk") if "-parti-" in e.uid]
+        self.assertEqual(len(games), 14)
+        dates = [e.start for e in games]
+        self.assertEqual(dates, sorted(dates))
+        for rest in (date(2026, 11, 27), date(2026, 12, 1), date(2026, 12, 5), date(2026, 12, 9)):
+            self.assertNotIn(rest, dates)
+        self.assertEqual((dates[0], dates[-1]), (date(2026, 11, 24), date(2026, 12, 11)))
+
+    def test_falun_championships_span(self):
+        vm = next(e for e in events_of("langrenn") if e.uid.startswith("langrenn-vm-"))
+        self.assertEqual(vm.start, date(2027, 2, 24))
+        self.assertEqual(vm.start + vm.duration, date(2027, 3, 8))  # siste dag 7. mars, eksklusiv slutt
+
+    def test_nm_weekdays_match_the_documented_pattern(self):
+        nm = {e.start: e for e in events_of("langrenn") if "-nm-" in e.uid}
+        self.assertEqual([d.weekday() for d in sorted(nm) if d.month == 1], [3, 4, 5])  # tor, fre, lør
+        self.assertEqual([d.weekday() for d in sorted(nm) if d.month == 4], [4, 5, 6])  # fre, lør, søn
+
+    def test_world_cup_dates_are_ordered_and_in_season(self):
+        wc = sorted(e.start for e in events_of("langrenn") if "-vc-" in e.uid)
+        self.assertEqual(wc[0], date(2026, 11, 27))
+        self.assertEqual(wc[-1], date(2027, 3, 21))
+        self.assertEqual(len(wc), len(set(wc)))  # aldri to renn samme dag
+
+    def test_every_event_url_is_https(self):
+        for feed in SOURCE_FEEDS:
+            for e in feed.module.build_events(load_data(feed)):
+                self.assertTrue(e.url.startswith("https://"), e.uid)
 
 
 class NorgesBankRefresh(unittest.TestCase):
@@ -181,6 +260,24 @@ class NorgesBankRefresh(unittest.TestCase):
         self.assertTrue(any("nye datoer" in n for n in notes))
 
 
+class SiteDisplay(unittest.TestCase):
+    def test_short_title_drops_only_redundant_source_prefixes(self):
+        self.assertEqual(build.short_title("Norges Bank: Rentebeslutning"), "Rentebeslutning")
+        self.assertEqual(build.short_title("Fotball: Norge–Wales (Nations League)"), "Norge–Wales (Nations League)")
+        # Disse bærer informasjon og skal beholdes:
+        self.assertEqual(build.short_title("Sjakk-VM: parti 1 av 14"), "Sjakk-VM: parti 1 av 14")
+        title = "Langrenn verdenscup, Ruka: sprint klassisk"
+        self.assertEqual(build.short_title(title), title)
+
+    def test_every_event_payload_has_short_title(self):
+        results, _ = build.collect(date(2026, 11, 11), offline=True)
+        for _feed, _data, events in results:
+            for e in events:
+                payload = build._event_payload(e)
+                self.assertTrue(payload["short"])
+                self.assertIn(payload["allDay"], (True, False))
+
+
 class Freshness(unittest.TestCase):
     def test_current_data_is_fresh_today(self):
         results, _ = build.collect(date(2026, 11, 11), offline=True)
@@ -188,7 +285,14 @@ class Freshness(unittest.TestCase):
 
     def test_old_data_is_flagged(self):
         results, _ = build.collect(date(2027, 12, 1), offline=True)
-        self.assertTrue(build.stale_problems(results, date(2027, 12, 1)))
+        problems = build.stale_problems(results, date(2027, 12, 1))
+        self.assertTrue(problems)
+
+    def test_sport_feeds_never_trigger_freshness_failures(self):
+        results, _ = build.collect(date(2030, 1, 1), offline=True)
+        flagged = " ".join(build.stale_problems(results, date(2030, 1, 1)))
+        for name in ("Fotball", "Langrenn", "Sjakk", "Alle hendelser"):
+            self.assertNotIn(name, flagged)
 
 
 if __name__ == "__main__":
