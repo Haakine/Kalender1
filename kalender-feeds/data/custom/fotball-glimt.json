@@ -1,0 +1,50 @@
+{
+  "id": "fotball-glimt",
+  "name": "Fotball: Bodø/Glimt i Champions League",
+  "description": "Gjenstående kamper i ligafasen, med avspark i norsk tid.",
+  "color": "#A8780F",
+  "group": "Sport",
+  "source_label": "UEFA",
+  "source_url": "https://www.uefa.com/uefachampionsleague/clubs/59333--bodo-glimt/matches/",
+  "verified": "2026-11-11",
+  "coverage_note": "Bare gjenstående kamper i ligafasen er med. Spiller laget videre, må sluttspillkampene legges inn når trekningen er gjort.",
+  "min_horizon_days": null,
+  "events": [
+    {
+      "id": "ucl-5",
+      "title": "Fotball: Bodø/Glimt–LASK (Champions League)",
+      "start": "2026-11-24T18:45",
+      "tz": "Europe/Oslo",
+      "minutes": 120,
+      "description": "Champions League, ligafasen, kamp 5 av 8. Hjemmekamp. Tidspunktet er norsk tid.",
+      "url": "https://www.uefa.com/uefachampionsleague/fixtures-results/"
+    },
+    {
+      "id": "ucl-6",
+      "title": "Fotball: Lens–Bodø/Glimt (Champions League)",
+      "start": "2026-12-09T21:00",
+      "tz": "Europe/Oslo",
+      "minutes": 120,
+      "description": "Champions League, ligafasen, kamp 6 av 8. Bortekamp. Tidspunktet er norsk tid.",
+      "url": "https://www.uefa.com/uefachampionsleague/fixtures-results/"
+    },
+    {
+      "id": "ucl-7",
+      "title": "Fotball: Bodø/Glimt–Atlético Madrid (Champions League)",
+      "start": "2027-01-19T18:45",
+      "tz": "Europe/Oslo",
+      "minutes": 120,
+      "description": "Champions League, ligafasen, kamp 7 av 8. Hjemmekamp. Tidspunktet er norsk tid.",
+      "url": "https://www.uefa.com/uefachampionsleague/fixtures-results/"
+    },
+    {
+      "id": "ucl-8",
+      "title": "Fotball: Club Brugge–Bodø/Glimt (Champions League)",
+      "start": "2027-01-27T21:00",
+      "tz": "Europe/Oslo",
+      "minutes": 120,
+      "description": "Champions League, ligafasen, kamp 8 av 8. Bortekamp. Tidspunktet er norsk tid.",
+      "url": "https://www.uefa.com/uefachampionsleague/fixtures-results/"
+    }
+  ]
+}

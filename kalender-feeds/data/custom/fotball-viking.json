@@ -1,0 +1,50 @@
+{
+  "id": "fotball-viking",
+  "name": "Fotball: Viking i Champions League",
+  "description": "Gjenstående kamper i ligafasen, med avspark i norsk tid.",
+  "color": "#1D3F72",
+  "group": "Sport",
+  "source_label": "UEFA",
+  "source_url": "https://www.uefa.com/uefachampionsleague/clubs/52319--viking/matches/",
+  "verified": "2026-11-11",
+  "coverage_note": "Bare gjenstående kamper i ligafasen er med. Spiller laget videre, må sluttspillkampene legges inn når trekningen er gjort.",
+  "min_horizon_days": null,
+  "events": [
+    {
+      "id": "ucl-5",
+      "title": "Fotball: Atlético Madrid–Viking (Champions League)",
+      "start": "2026-11-25T21:00",
+      "tz": "Europe/Oslo",
+      "minutes": 120,
+      "description": "Champions League, ligafasen, kamp 5 av 8. Bortekamp. Tidspunktet er norsk tid.",
+      "url": "https://www.uefa.com/uefachampionsleague/fixtures-results/"
+    },
+    {
+      "id": "ucl-6",
+      "title": "Fotball: Viking–Feyenoord (Champions League)",
+      "start": "2026-12-08T18:45",
+      "tz": "Europe/Oslo",
+      "minutes": 120,
+      "description": "Champions League, ligafasen, kamp 6 av 8. Hjemmekamp. Tidspunktet er norsk tid.",
+      "url": "https://www.uefa.com/uefachampionsleague/fixtures-results/"
+    },
+    {
+      "id": "ucl-7",
+      "title": "Fotball: Viking–PSV Eindhoven (Champions League)",
+      "start": "2027-01-20T21:00",
+      "tz": "Europe/Oslo",
+      "minutes": 120,
+      "description": "Champions League, ligafasen, kamp 7 av 8. Hjemmekamp. Tidspunktet er norsk tid.",
+      "url": "https://www.uefa.com/uefachampionsleague/fixtures-results/"
+    },
+    {
+      "id": "ucl-8",
+      "title": "Fotball: Napoli–Viking (Champions League)",
+      "start": "2027-01-27T21:00",
+      "tz": "Europe/Oslo",
+      "minutes": 120,
+      "description": "Champions League, ligafasen, kamp 8 av 8. Bortekamp. Tidspunktet er norsk tid.",
+      "url": "https://www.uefa.com/uefachampionsleague/fixtures-results/"
+    }
+  ]
+}
