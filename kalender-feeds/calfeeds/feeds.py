@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from types import ModuleType
 
-from .sources import fed, fotball, langrenn, norges_bank, sjakk, ssb
+from .sources import enkel, fed, fotball, langrenn, norges_bank, sjakk, ssb
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
@@ -15,7 +15,7 @@ DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 GROUP_ALL = "Alt i én kalender"
 GROUP_ECONOMY = "Økonomi"
 GROUP_SPORT = "Sport"
-GROUP_ORDER = [GROUP_ALL, GROUP_ECONOMY, GROUP_SPORT]
+GROUP_ORDER = [GROUP_ALL, GROUP_ECONOMY, GROUP_SPORT]  # egne grupper i data/custom legges til etter disse
 
 
 @dataclass(frozen=True)
@@ -118,6 +118,46 @@ FEEDS: list[Feed] = [
         source_url="https://www.fide.com/salesforce-fide-world-championship-match-2026-schedule-format-and-prize-fund-confirmed/",
     ),
 ]
+
+
+CUSTOM_DIR = DATA_DIR / "custom"
+_REQUIRED = ("id", "name", "description", "color", "group", "events")
+
+
+def _discover_custom() -> list[Feed]:
+    """Leser alle data/custom/*.json. Filer som begynner med _ (malen) hoppes over."""
+    feeds = []
+    for path in sorted(CUSTOM_DIR.glob("*.json")):
+        if path.name.startswith("_"):
+            continue
+        with path.open(encoding="utf-8") as fh:
+            data = json.load(fh)
+        missing = [k for k in _REQUIRED if k not in data]
+        if missing:
+            raise ValueError(f"{path.name}: mangler {', '.join(missing)}")
+        feeds.append(
+            Feed(
+                id=data["id"],
+                name=data["name"],
+                description=data["description"],
+                color=data["color"],
+                group=data["group"],
+                data_file=f"custom/{path.name}",
+                module=enkel,
+                source_label=data.get("source_label", ""),
+                source_url=data.get("source_url", ""),
+                min_horizon_days=data.get("min_horizon_days"),
+            )
+        )
+    return feeds
+
+
+FEEDS.extend(_discover_custom())
+for _feed in FEEDS:
+    if _feed.group not in GROUP_ORDER:
+        GROUP_ORDER.append(_feed.group)
+if len({f.id for f in FEEDS}) != len(FEEDS):
+    raise ValueError("To kalendere har samme id")
 
 
 def load_data(feed: Feed) -> dict:

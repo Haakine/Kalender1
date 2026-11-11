@@ -1,0 +1,17 @@
+{
+  "id": "min-kalender",
+  "name": "Min kalender",
+  "description": "Kort beskrivelse som vises på siden.",
+  "color": "#8A5A00",
+  "group": "Sport",
+  "source_label": "Navn på kilden",
+  "source_url": "https://eksempel.no/",
+  "verified": "2026-11-11",
+  "coverage_note": "Valgfri merknad om hva som mangler.",
+  "min_horizon_days": null,
+  "events": [
+    {"id": "heldag", "title": "Eksempel: heldag", "start": "2027-03-05"},
+    {"id": "flere-dager", "title": "Eksempel: flere dager", "start": "2027-03-05", "end": "2027-03-07"},
+    {"id": "med-tid", "title": "Eksempel: med klokkeslett", "start": "2027-03-05T18:00", "tz": "Europe/Oslo", "minutes": 90, "description": "Valgfri tekst", "url": "https://eksempel.no/hendelse"}
+  ]
+}

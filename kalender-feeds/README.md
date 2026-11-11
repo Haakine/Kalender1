@@ -65,11 +65,30 @@ For å oppdatere en datafil: rediger den på github.com (blyantikonet), lagre, o
 - **Langrenn, VM:** Mesterskapet 24. februar–7. mars 2027 er bekreftet. Dagsprogram og starttider er ikke publisert, så det ligger inne som én hendelse over hele perioden.
 - **Sjakk:** Partidatoene i VM-matchen (24. november–11. desember, omkamper 12. desember) kommer fra FIDE og en gjengivelse av tidsplanen. FIDE endret datoene for matchen i høst, og dette er de nye. Starttid for partiene er ikke oppgitt. **Tata Steel og Norway Chess 2027 er ikke med**, fordi jeg ikke fant bekreftede datoer. Legg dem til i `data/sjakk.json` under `events` når de er klare.
 
-## Legge til en ny kilde
+## Legge til en ny kalender
 
-1. Lag en modul i `calfeeds/sources/` med en `build_events(data)`-funksjon som returnerer `Event`-objekter (se `fed.py` for hendelser med klokkeslett og `sjakk.py` for heldagshendelser).
+**Vanlig tilfelle: en liste med datoer. Ingen kode nødvendig.**
+
+1. Kopier `data/custom/_mal.json` til `data/custom/<navn>.json` (på github.com: åpne malen, *Raw*, kopier, og bruk *Add file → Create new file*).
+2. Fyll inn id, navn, beskrivelse, farge, gruppe og hendelsene. Malen viser heldag, flere dager og hendelse med klokkeslett.
+3. Lagre. Siden bygges på nytt, og kalenderen får eget kort, egen `.ics`-adresse og kommer med i «Alle hendelser».
+
+Gruppen styrer hvor kortet står på siden. Skriver du en ny gruppe, for eksempel «Kultur», får den en egen overskrift. Filer som begynner med `_` leses ikke. Testene stopper byggingen hvis en fil mangler felt, har ugyldige datoer eller bruker en id som finnes fra før.
+
+**Når kilden trenger egen logikk** (henting fra nett, utregnede datoer, flere typer hendelser):
+
+1. Lag en modul i `calfeeds/sources/` med `build_events(data)` som returnerer `Event`-objekter. `fed.py` er et eksempel med klokkeslett, `sjakk.py` med heldagshendelser.
 2. Legg en datafil i `data/`.
-3. Registrer feeden i `calfeeds/feeds.py`. Samlekalenderen «Alle hendelser» tar den med automatisk.
+3. Registrer en `Feed` i `calfeeds/feeds.py`.
+4. Vil du at kilden skal hente nye data selv, legg til `refresh(data, today)` i modulen. Den får lagrede data og returnerer `(nye_data, notater)`. Se `norges_bank.py`: den beholder lagrede data hvis hentingen feiler. Byggescriptet kaller den automatisk.
+
+I begge tilfeller trenger du ikke røre nettsiden, workflowen eller samlekalenderen.
+
+**Bygge videre senere.** Slik kan større funksjoner legges til uten å endre grunnstrukturen:
+
+- *Varsler om forskningsrapporter:* en modul med `refresh` som leser en åpen RSS-feed og lager hendelser fra utgivelsesdatoene. Vil du ha push-varsler i tillegg, kan en ukentlig workflow sende til en gratis ntfy-kanal.
+- *Flere land eller lag:* kopier en eksisterende datafil og endre den.
+- *TV-kanal på sendinger:* legg et felt i datafilen og ta det med i beskrivelsen.
 
 ## Trygghet og personvern
 

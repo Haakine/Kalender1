@@ -297,3 +297,64 @@ class Freshness(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CustomFeeds(unittest.TestCase):
+    """Nye kalendere som bare er en JSON-fil i data/custom/."""
+
+    def _template(self):
+        import json
+        from calfeeds import feeds
+        return json.loads((feeds.CUSTOM_DIR / "_mal.json").read_text(encoding="utf-8"))
+
+    def test_template_builds_all_three_event_kinds(self):
+        from calfeeds.sources import enkel
+        events = enkel.build_events(self._template())
+        self.assertEqual(len(events), 3)
+        day, span, timed = events
+        self.assertTrue(day.all_day and day.duration == timedelta(days=1))
+        self.assertEqual(span.duration, timedelta(days=3))  # 5., 6. og 7. mars
+        self.assertFalse(timed.all_day)
+        self.assertEqual(timed.start.astimezone(timezone.utc).hour, 17)  # 18:00 norsk vintertid
+        self.assertEqual(timed.duration, timedelta(minutes=90))
+
+    def test_template_renders_to_valid_calendar(self):
+        from calfeeds.sources import enkel
+        data = self._template()
+        text = ics.render_calendar(name="x", description="y", events=enkel.build_events(data),
+                               color=data["color"], now=datetime(2026, 11, 11, tzinfo=timezone.utc))
+        self.assertEqual(text.count("BEGIN:VEVENT"), 3)
+
+    def test_end_before_start_is_rejected(self):
+        from calfeeds.sources import enkel
+        bad = {"id": "x", "events": [{"id": "a", "title": "A", "start": "2027-03-05", "end": "2027-03-01"}]}
+        with self.assertRaises(ValueError):
+            enkel.build_events(bad)
+
+    def test_discovery_adds_feed_new_group_and_combined_feed(self):
+        import json, tempfile
+        from pathlib import Path
+        from unittest import mock
+        import build
+        from calfeeds import feeds
+        data = self._template()
+        data.update(id="ny-test", name="Ny test", group="Kultur")
+        with tempfile.TemporaryDirectory() as tmp:
+            Path(tmp, "ny-test.json").write_text(json.dumps(data), encoding="utf-8")
+            Path(tmp, "_skjult.json").write_text("ikke json", encoding="utf-8")  # må hoppes over
+            with mock.patch.object(feeds, "CUSTOM_DIR", Path(tmp)):
+                found = feeds._discover_custom()
+        self.assertEqual([f.id for f in found], ["ny-test"])
+        self.assertEqual(found[0].group, "Kultur")
+        self.assertEqual(found[0].data_file, "custom/ny-test.json")
+
+    def test_missing_required_field_gives_clear_error(self):
+        import json, tempfile
+        from pathlib import Path
+        from unittest import mock
+        from calfeeds import feeds
+        with tempfile.TemporaryDirectory() as tmp:
+            Path(tmp, "a.json").write_text(json.dumps({"id": "a"}), encoding="utf-8")
+            with mock.patch.object(feeds, "CUSTOM_DIR", Path(tmp)):
+                with self.assertRaisesRegex(ValueError, "mangler"):
+                    feeds._discover_custom()
