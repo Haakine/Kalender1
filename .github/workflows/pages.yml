@@ -1,1 +1,62 @@
+name: Bygg og publiser kalendere
 
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 3 * * 1" # hver mandag kl. 03:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Kjør tester
+        run: python -m unittest discover -s tests -v
+
+      - name: Bygg kalendere og nettside
+        run: python build.py
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  # Egen jobb slik at en for gammel datafil gir en feilmelding på e-post,
+  # uten å stoppe publiseringen av det som allerede er riktig.
+  freshness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Sjekk at datoene dekker langt nok frem i tid
+        run: python build.py --check-freshness
