@@ -1,0 +1,16 @@
+{
+  "source": "https://www.ssb.no/en/kommende-publiseringer",
+  "verified": "2026-11-11",
+  "coverage_note": "SSBs kalender viser publiseringer til og med 9. februar 2027.",
+  "releases": [
+    {"date": "2026-11-25", "series": "aku", "period": "oktober 2026"},
+    {"date": "2026-12-09", "series": "ppi", "period": "november 2026"},
+    {"date": "2026-12-10", "series": "kpi", "period": "november 2026"},
+    {"date": "2026-12-14", "series": "konj", "period": "prognoser 2026–2029"},
+    {"date": "2026-12-22", "series": "aku", "period": "november 2026"},
+    {"date": "2027-01-11", "series": "kpi", "period": "desember 2026"},
+    {"date": "2027-01-11", "series": "ppi", "period": "desember 2026"},
+    {"date": "2027-01-26", "series": "aku", "period": "desember 2026"},
+    {"date": "2027-02-09", "series": "ppi", "period": "januar 2027"}
+  ]
+}
