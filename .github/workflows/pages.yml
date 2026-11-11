@@ -10,6 +10,11 @@ on:
 permissions:
   contents: read
 
+# Prosjektfilene ligger i undermappen kalender-feeds
+defaults:
+  run:
+    working-directory: kalender-feeds
+
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -34,7 +39,7 @@ jobs:
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: kalender-feeds/site
 
   deploy:
     needs: build
