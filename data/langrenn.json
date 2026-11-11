@@ -1,0 +1,80 @@
+{
+  "source": "https://www.fis-ski.com/cross-country/news/2025-26/tour-de-ski-to-make-french-debut-2026-27-world-cup-calendar-unveiled",
+  "verified": "2026-11-11",
+  "coverage_note": "Verdenscupen følger FIS' foreslåtte kalender fra mai 2026. Dagsprogram og starttider for VM i Falun er ikke publisert, og NM-stafetten på Konnerud mangler fordi datoen ikke er oppgitt.",
+  "world_cup_url": "https://www.fis-ski.com/cross-country/news/2025-26/tour-de-ski-to-make-french-debut-2026-27-world-cup-calendar-unveiled",
+  "nm_url": "https://prod.skiforbundet.no/globalassets/04-gren---medier/langrenn/regler-og-retningslinjer/2026-2027-sesonginformasjoner-langrenn.pdf",
+  "vm": {
+    "place": "Falun",
+    "start": "2027-02-24",
+    "end": "2027-03-07",
+    "url": "https://www.proxcskiing.com/?p=99259",
+    "source_label": "proxcskiing.com og allsportdb.com"
+  },
+  "world_cup": [
+    {"place": "Ruka", "country": "Finland", "races": [
+      {"date": "2026-11-27", "race": "10 km klassisk, intervallstart"},
+      {"date": "2026-11-28", "race": "sprint klassisk"},
+      {"date": "2026-11-29", "race": "20 km fristil, fellesstart"}
+    ]},
+    {"place": "Trondheim", "country": "Norge", "races": [
+      {"date": "2026-12-01", "race": "10 km klassisk, intervallstart"},
+      {"date": "2026-12-02", "race": "sprint fristil"},
+      {"date": "2026-12-03", "race": "20 km skiathlon"}
+    ]},
+    {"place": "Davos", "country": "Sveits", "races": [
+      {"date": "2026-12-11", "race": "5 km fristil, heat mass start"},
+      {"date": "2026-12-12", "race": "sprint fristil"},
+      {"date": "2026-12-13", "race": "lagsprint fristil"}
+    ]},
+    {"place": "Les Rousses (Tour de Ski)", "country": "Frankrike", "races": [
+      {"date": "2027-01-01", "race": "sprint klassisk"},
+      {"date": "2027-01-02", "race": "20 km klassisk, fellesstart"},
+      {"date": "2027-01-03", "race": "15 km fristil, jaktstart"}
+    ]},
+    {"place": "Oberstdorf (Tour de Ski)", "country": "Tyskland", "races": [
+      {"date": "2027-01-05", "race": "15 km klassisk, fellesstart"},
+      {"date": "2027-01-06", "race": "5 km fristil, heat mass start"}
+    ]},
+    {"place": "Val di Fiemme (Tour de Ski)", "country": "Italia", "races": [
+      {"date": "2027-01-08", "race": "15 km skiathlon"},
+      {"date": "2027-01-09", "race": "sprint fristil"},
+      {"date": "2027-01-10", "race": "Final Climb (Alpe Cermis)"}
+    ]},
+    {"place": "Engadin", "country": "Sveits", "races": [
+      {"date": "2027-01-22", "race": "mixed stafett"},
+      {"date": "2027-01-23", "race": "sprint fristil"},
+      {"date": "2027-01-24", "race": "20 km fristil, fellesstart"}
+    ]},
+    {"place": "Toblach", "country": "Italia", "races": [
+      {"date": "2027-01-29", "race": "10 km fristil, intervallstart"},
+      {"date": "2027-01-30", "race": "sprint fristil"},
+      {"date": "2027-01-31", "race": "20 km klassisk, fellesstart"}
+    ]},
+    {"place": "Lahti", "country": "Finland", "races": [
+      {"date": "2027-02-12", "race": "sprint klassisk"},
+      {"date": "2027-02-13", "race": "20 km skiathlon"},
+      {"date": "2027-02-14", "race": "10 km klassisk, intervallstart"}
+    ]},
+    {"place": "Oslo (Holmenkollen)", "country": "Norge", "races": [
+      {"date": "2027-03-13", "race": "50 km klassisk, fellesstart"},
+      {"date": "2027-03-14", "race": "50 km klassisk, fellesstart"}
+    ]},
+    {"place": "Drammen", "country": "Norge", "races": [
+      {"date": "2027-03-16", "race": "sprint klassisk"}
+    ]},
+    {"place": "Ulricehamn (finale)", "country": "Sverige", "races": [
+      {"date": "2027-03-19", "race": "10 km fristil, intervallstart"},
+      {"date": "2027-03-20", "race": "sprint fristil"},
+      {"date": "2027-03-21", "race": "20 km klassisk, fellesstart"}
+    ]}
+  ],
+  "nm": [
+    {"date": "2027-01-21", "place": "Konnerud", "race": "sprint, fri teknikk"},
+    {"date": "2027-01-22", "place": "Konnerud", "race": "10 km klassisk"},
+    {"date": "2027-01-23", "place": "Konnerud", "race": "20 km skiathlon"},
+    {"date": "2027-04-02", "place": "Hovden", "race": "5 km og 10 km, fri teknikk"},
+    {"date": "2027-04-03", "place": "Hovden", "race": "30 km og 50 km klassisk"},
+    {"date": "2027-04-04", "place": "Hovden", "race": "lagsprint, fri teknikk"}
+  ]
+}

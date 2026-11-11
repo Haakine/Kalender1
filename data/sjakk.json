@@ -1,0 +1,39 @@
+{
+  "source": "https://www.fide.com/salesforce-fide-world-championship-match-2026-schedule-format-and-prize-fund-confirmed/",
+  "verified": "2026-11-11",
+  "coverage_note": "Tata Steel og Norway Chess 2027 er ikke med ennå, fordi bekreftede datoer ikke var tilgjengelige.",
+  "world_championship": {
+    "url": "https://www.fide.com/salesforce-fide-world-championship-match-2026-schedule-format-and-prize-fund-confirmed/",
+    "venue": "Genève",
+    "players": "Gukesh D (India) mot Javokhir Sindarov (Usbekistan)",
+    "opening_ceremony": "2026-11-22",
+    "tiebreak": "2026-12-12",
+    "games": [
+      {"n": 1, "date": "2026-11-24"},
+      {"n": 2, "date": "2026-11-25"},
+      {"n": 3, "date": "2026-11-26"},
+      {"n": 4, "date": "2026-11-28"},
+      {"n": 5, "date": "2026-11-29"},
+      {"n": 6, "date": "2026-11-30"},
+      {"n": 7, "date": "2026-12-02"},
+      {"n": 8, "date": "2026-12-03"},
+      {"n": 9, "date": "2026-12-04"},
+      {"n": 10, "date": "2026-12-06"},
+      {"n": 11, "date": "2026-12-07"},
+      {"n": 12, "date": "2026-12-08"},
+      {"n": 13, "date": "2026-12-10"},
+      {"n": 14, "date": "2026-12-11"}
+    ]
+  },
+  "events": [
+    {
+      "id": "fide-rapid-blitz-2026",
+      "title": "VM i rapid og blitz",
+      "place": "Istanbul",
+      "start": "2026-12-25",
+      "end": "2026-12-30",
+      "url": "https://www.fide.com/fide-circuit-2026-2027/",
+      "source_label": "FIDE"
+    }
+  ]
+}

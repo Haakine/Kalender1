@@ -1,0 +1,24 @@
+{
+  "source": "https://www.sportsidioten.no/fotball/nations-league-2026-2027/",
+  "source_label": "sportsidioten.no og FotMob (offisielt program hos NFF og UEFA)",
+  "verified": "2026-11-11",
+  "coverage_note": "Bare kampene som er publisert så langt er med. Nye landskamper legges til når datoene er klare.",
+  "matches": [
+    {
+      "kickoff": "2026-11-14T18:00",
+      "tz": "Europe/Oslo",
+      "home": "Norge",
+      "away": "Wales",
+      "competition": "UEFA Nations League, liga A",
+      "competition_short": "Nations League"
+    },
+    {
+      "kickoff": "2026-11-17T20:45",
+      "tz": "Europe/Copenhagen",
+      "home": "Danmark",
+      "away": "Norge",
+      "competition": "UEFA Nations League, liga A",
+      "competition_short": "Nations League"
+    }
+  ]
+}
