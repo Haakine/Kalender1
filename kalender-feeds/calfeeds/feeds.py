@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from types import ModuleType
 
-from .sources import enkel, fed, fotball, langrenn, norges_bank, sjakk, ssb
+from .sources import enkel, fed, fotball, langrenn, norges_bank, sjakk, ssb, trening
 
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
@@ -15,7 +15,8 @@ DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 GROUP_ALL = "Alt i én kalender"
 GROUP_ECONOMY = "Økonomi"
 GROUP_SPORT = "Sport"
-GROUP_ORDER = [GROUP_ALL, GROUP_ECONOMY, GROUP_SPORT]  # egne grupper i data/custom legges til etter disse
+GROUP_TRAINING = "Trening"
+GROUP_ORDER = [GROUP_ALL, GROUP_ECONOMY, GROUP_SPORT, GROUP_TRAINING]  # egne grupper i data/custom legges til etter disse
 
 
 @dataclass(frozen=True)
@@ -34,6 +35,14 @@ class Feed:
     # None = ingen sjekk (sesongbaserte sportskilder, som oppdateres for hånd).
     min_horizon_days: int | None = None
     combined: bool = False
+    # false = hendelsene tas ikke med i «Alle hendelser» (for eksempel treningsplanen).
+    in_combined: bool = True
+    # Emoji foran alle titler i feeden (en hendelse kan ha sitt eget ikon i stedet).
+    icon: str = ""
+    # Påminnelse i minutter før start, for hendelser med klokkeslett og for heldagshendelser.
+    # Negativt = etter start (for heldag: -450 betyr kl. 07:30 samme dag). None = ingen.
+    alarm_minutes: int | None = None
+    alarm_minutes_all_day: int | None = None
 
 
 FEEDS: list[Feed] = [
@@ -59,6 +68,7 @@ FEEDS: list[Feed] = [
         source_label="Norges Banks kalender",
         source_url="https://www.norges-bank.no/aktuelt/kalender/rentemoter/",
         min_horizon_days=60,
+        icon="🏦",
     ),
     Feed(
         id="fed",
@@ -71,6 +81,7 @@ FEEDS: list[Feed] = [
         source_label="Fed: FOMC-kalenderen",
         source_url="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
         min_horizon_days=90,
+        icon="🇺🇸",
     ),
     Feed(
         id="ssb",
@@ -83,6 +94,7 @@ FEEDS: list[Feed] = [
         source_label="SSBs kommende publiseringer",
         source_url="https://www.ssb.no/en/kommende-publiseringer",
         min_horizon_days=21,
+        icon="📊",
     ),
     Feed(
         id="fotball",
@@ -94,6 +106,8 @@ FEEDS: list[Feed] = [
         module=fotball,
         source_label="sportsidioten.no",
         source_url="https://www.sportsidioten.no/fotball/nations-league-2026-2027/",
+        icon="⚽",
+        alarm_minutes=60,
     ),
     Feed(
         id="langrenn",
@@ -105,6 +119,7 @@ FEEDS: list[Feed] = [
         module=langrenn,
         source_label="FIS og Norges Skiforbund",
         source_url="https://www.fis-ski.com/cross-country/news/2025-26/tour-de-ski-to-make-french-debut-2026-27-world-cup-calendar-unveiled",
+        icon="⛷️",
     ),
     Feed(
         id="sjakk",
@@ -116,6 +131,20 @@ FEEDS: list[Feed] = [
         module=sjakk,
         source_label="FIDE",
         source_url="https://www.fide.com/salesforce-fide-world-championship-match-2026-schedule-format-and-prize-fund-confirmed/",
+        icon="♟️",
+    ),
+    Feed(
+        id="trening",
+        name="Treningsplan",
+        description=(
+            "Dine økter de neste tre månedene, tilpasset konkurransene dine. "
+            "Egen kalender, ikke med i «Alle hendelser»."
+        ),
+        color="#C2571A",
+        group=GROUP_TRAINING,
+        data_file="trening.json",
+        module=trening,
+        in_combined=False,
     ),
 ]
 
@@ -147,6 +176,10 @@ def _discover_custom() -> list[Feed]:
                 source_label=data.get("source_label", ""),
                 source_url=data.get("source_url", ""),
                 min_horizon_days=data.get("min_horizon_days"),
+                in_combined=data.get("in_combined", True),
+                icon=data.get("icon", ""),
+                alarm_minutes=data.get("alarm_minutes"),
+                alarm_minutes_all_day=data.get("alarm_minutes_all_day"),
             )
         )
     return feeds

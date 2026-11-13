@@ -33,6 +33,16 @@ class Event:
     summary: str
     description: str = ""
     url: str = ""
+    # Emoji foran tittelen i kalenderappen, for eksempel «⚽».
+    icon: str = ""
+    # Påminnelse, minutter før start. Negativt tall = etter start (for heldagshendelser er
+    # start midnatt, så -450 gir en påminnelse kl. 07:30 samme dag). None = ingen påminnelse.
+    alarm_minutes: int | None = None
+
+    @property
+    def title(self) -> str:
+        """Tittelen slik den vises i kalenderappen, med ikon."""
+        return f"{self.icon} {self.summary}" if self.icon else self.summary
 
     @property
     def all_day(self) -> bool:
@@ -100,7 +110,7 @@ def _event_lines(event: Event, now: datetime) -> list[str]:
             f"DTSTART:{format_utc(event.start)}",
             f"DTEND:{format_utc(event.start + event.duration)}",
         ]
-    lines.append(f"SUMMARY:{escape_text(event.summary)}")
+    lines.append(f"SUMMARY:{escape_text(event.title)}")
     if event.description:
         lines.append(f"DESCRIPTION:{escape_text(event.description)}")
     if event.url:
@@ -108,8 +118,25 @@ def _event_lines(event: Event, now: datetime) -> list[str]:
             raise ValueError(f"Ugyldig URL: {event.url!r}")
         lines.append(f"URL:{event.url}")
     # TRANSPARENT: hendelsene skal ikke markere deg som opptatt i kalenderen.
-    lines += ["TRANSP:TRANSPARENT", "STATUS:CONFIRMED", "END:VEVENT"]
+    lines += ["TRANSP:TRANSPARENT", "STATUS:CONFIRMED"]
+    if event.alarm_minutes is not None:
+        lines += _alarm_lines(event)
+    lines.append("END:VEVENT")
     return lines
+
+
+def _alarm_lines(event: Event) -> list[str]:
+    minutes = event.alarm_minutes
+    if not isinstance(minutes, int) or isinstance(minutes, bool) or abs(minutes) > 7 * 24 * 60:
+        raise ValueError(f"Ugyldig påminnelse: {minutes!r}")
+    trigger = f"-PT{minutes}M" if minutes >= 0 else f"PT{-minutes}M"
+    return [
+        "BEGIN:VALARM",
+        "ACTION:DISPLAY",
+        f"DESCRIPTION:{escape_text(event.title)}",
+        f"TRIGGER:{trigger}",
+        "END:VALARM",
+    ]
 
 
 def render_calendar(

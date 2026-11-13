@@ -7,7 +7,7 @@ Hendelser:
   {"id": "unik-id", "title": "Tittel", "start": "2027-03-05"}                    heldag
   {..., "start": "2027-03-05", "end": "2027-03-07"}                              flere dager (end er med)
   {..., "start": "2027-03-05T18:00", "tz": "Europe/Oslo", "minutes": 90}         med klokkeslett (lokal tid)
-Valgfritt på hver hendelse: "description", "url" (https).
+Valgfritt på hver hendelse: "description", "url" (https), "icon" (emoji).
 """
 
 from __future__ import annotations
@@ -50,7 +50,8 @@ def build_events(data: dict) -> list[Event]:
                 duration=duration,
                 summary=item["title"],
                 description="\n".join(lines),
-                url=item.get("url") or data.get("source_url"),
+                url=item.get("url") or data.get("source_url") or "",
+                icon=item.get("icon", ""),
             )
         )
     return events

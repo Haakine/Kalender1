@@ -11,6 +11,8 @@ Abonnerbare kalendere (`.ics`) for Apple Kalender, publisert som en gratis, stat
 | Fotball: Norges landslag | Herrelandslagets kamper med avspark i norsk tid | [sportsidioten.no](https://www.sportsidioten.no/fotball/nations-league-2026-2027/) og FotMob |
 | Langrenn: verdenscup, NM og VM | Verdenscuprenn, Tour de Ski, Holmenkollen, NM og ski-VM i Falun | [FIS](https://www.fis-ski.com/cross-country/news/2025-26/tour-de-ski-to-make-french-debut-2026-27-world-cup-calendar-unveiled) og [Norges Skiforbund](https://prod.skiforbundet.no/globalassets/04-gren---medier/langrenn/regler-og-retningslinjer/2026-2027-sesonginformasjoner-langrenn.pdf) |
 | Sjakk: VM og store turneringer | VM-matchen i Genève, parti for parti, og VM i rapid og blitz | [FIDE](https://www.fide.com/salesforce-fide-world-championship-match-2026-schedule-format-and-prize-fund-confirmed/) |
+| Fotball: Bodø/Glimt og Viking | Gjenstående kamper i Champions League | [UEFA](https://www.uefa.com/uefachampionsleague/) |
+| Treningsplan | Økter fra den personlige treningsplanen, **ikke** med i «Alle hendelser» | Treningsdokumentet |
 
 Datoene ble sjekket mot kildene 11. november 2026.
 
@@ -65,6 +67,19 @@ For å oppdatere en datafil: rediger den på github.com (blyantikonet), lagre, o
 - **Langrenn, VM:** Mesterskapet 24. februar–7. mars 2027 er bekreftet. Dagsprogram og starttider er ikke publisert, så det ligger inne som én hendelse over hele perioden.
 - **Sjakk:** Partidatoene i VM-matchen (24. november–11. desember, omkamper 12. desember) kommer fra FIDE og en gjengivelse av tidsplanen. FIDE endret datoene for matchen i høst, og dette er de nye. Starttid for partiene er ikke oppgitt. **Tata Steel og Norway Chess 2027 er ikke med**, fordi jeg ikke fant bekreftede datoer. Legg dem til i `data/sjakk.json` under `events` når de er klare.
 
+## Treningsplan (rullerende)
+
+Planen vises alltid 13 uker (ca. 3 måneder) framover fra denne uka. Hver uke flytter vinduet seg, og nye uker genereres fra mål, status og tilgjengelige treningsformer i `data/trening.json`. Kalenderen får bare navnet på økta (heldag, ingen påminnelse, ikke med i «Alle hendelser»); varighet og detaljer vises kun i den lokale oversikten.
+
+- **Mål**: Birkebeinerrennet (ski, 20. mars 2027, mål 3:30:00, klassisk med staking) og Bergen halvmaraton (24. april 2027, mål 1:35:00). Faser bygges bakover fra konkurransene: grunnfase, spesifikk fase (8 uker ski, 3 uker halvmaraton), konkurranseuke og rolig uke etterpå. Sett `"active": false` på et mål for å droppe det.
+- **Volum**: 5–8 økter og ca. 10–15 timer i uka. Timene øker ca. 8 % per uke, med en lettere uke etter tre vanlige uker. Løpevolumet øker maks ca. 12 % per uke.
+- **Forbedring**: hver lettere uke har en test som roterer mellom SkiErg 6000 m, 5 km og 5RM styrke.
+- **Etter sykdom**: tre rolige uker med gå/løp og ingen harde løpeøkter. `hold_intensity: true` fjerner alle kvalitetsøkter.
+- **Tilgjengelighet**: `availability` i `data/trening.json` (f.eks. langrenn 20. des–5. jan) bytter økter til skiversjoner og gir ingen lett uke i leiruka.
+- **Plassering**: økter har ingen fast ukedag. Algoritmen legger langtur i helga, holder harde økter fra hverandre, bein ikke før kvalitet eller langtur, minst én hviledag, og aldri økter på konkurransedagen.
+
+Se planen lokalt før noe pushes: `python3 build.py --plan --today ÅÅÅÅ-MM-DD`.
+
 ## Legge til en ny kalender
 
 **Vanlig tilfelle: en liste med datoer. Ingen kode nødvendig.**
@@ -72,6 +87,11 @@ For å oppdatere en datafil: rediger den på github.com (blyantikonet), lagre, o
 1. Kopier `data/custom/_mal.json` til `data/custom/<navn>.json` (på github.com: åpne malen, *Raw*, kopier, og bruk *Add file → Create new file*).
 2. Fyll inn id, navn, beskrivelse, farge, gruppe og hendelsene. Malen viser heldag, flere dager og hendelse med klokkeslett.
 3. Lagre. Siden bygges på nytt, og kalenderen får eget kort, egen `.ics`-adresse og kommer med i «Alle hendelser».
+
+Valgfrie innstillinger øverst i filen:
+- `"icon": "⚽"` legger en emoji foran alle titler. En hendelse kan ha eget `"icon"`.
+- `"alarm_minutes": 60` gir en påminnelse 60 minutter før hendelser med klokkeslett. `"alarm_minutes_all_day": -450` gir for heldagshendelser en påminnelse kl. 07:30 samme dag (negativt tall = etter midnatt). Ikke satt = ingen påminnelse.
+- `"in_combined": false` holder kalenderen utenfor «Alle hendelser». Treningsplanen bruker dette.
 
 Gruppen styrer hvor kortet står på siden. Skriver du en ny gruppe, for eksempel «Kultur», får den en egen overskrift. Filer som begynner med `_` leses ikke. Testene stopper byggingen hvis en fil mangler felt, har ugyldige datoer eller bruker en id som finnes fra før.
 

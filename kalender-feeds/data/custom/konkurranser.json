@@ -1,0 +1,55 @@
+{
+  "id": "konkurranser",
+  "name": "Konkurranser",
+  "description": "Norseman, Birkebeinerrennet og Bergen City Marathon (halvmaraton): konkurransedager og viktige påmeldingsdatoer.",
+  "color": "#5C6B1E",
+  "group": "Sport",
+  "verified": "2026-11-13",
+  "coverage_note": "Påmeldingsdatoer legges inn så snart de er kunngjort. Start- og påmeldingsdatoer for Bergen City Marathon og neste Norseman-trekning er ikke publisert ennå.",
+  "icon": "🏅",
+  "in_combined": true,
+  "min_horizon_days": null,
+  "alarm_minutes_all_day": 900,
+  "events": [
+    {
+      "id": "norseman-2027",
+      "title": "Norseman Xtreme Triathlon, Eidfjord",
+      "icon": "🏊",
+      "start": "2027-08-07",
+      "description": "Norseman 2027. Startplass fås ved trekning, og trekningen for 2027 var i oktober 2026. Neste trekning er ikke kunngjort.",
+      "url": "https://www.nxtri.com/registration-slots"
+    },
+    {
+      "id": "birkebeinerrennet-2027",
+      "title": "Birkebeinerrennet, 54 km (Rena–Lillehammer)",
+      "icon": "⛷️",
+      "start": "2027-03-20",
+      "description": "87. utgave. Foreløpige starttider 07:45–10:55 avhengig av startgruppe. Endelig startgruppe kommer 1–2 uker før.",
+      "url": "https://birken.no/en/ski/birkebeinerrennet-54-km"
+    },
+    {
+      "id": "birken-pris-opp",
+      "title": "Birkebeinerrennet: prisen øker til 2 125 kr",
+      "icon": "📝",
+      "start": "2027-02-16",
+      "description": "Prisen er 1 965 kr til og med 15. februar 2027, deretter 2 125 kr.",
+      "url": "https://birken.no/en/ski/birkebeinerrennet-54-km"
+    },
+    {
+      "id": "birken-pamelding-stenger",
+      "title": "Birkebeinerrennet: påmeldingen stenger kl. 20:00",
+      "icon": "📝",
+      "start": "2027-03-19",
+      "description": "Siste frist for påmelding og ompåmelding er 19. mars 2027 kl. 20:00.",
+      "url": "https://birken.no/en/ski/birkebeinerrennet-54-km"
+    },
+    {
+      "id": "bergen-halvmaraton-2027",
+      "title": "Bergen City Marathon, halvmaraton",
+      "icon": "🏃",
+      "start": "2027-04-24",
+      "description": "Bergen City Marathon 2027. Starttid for halvmaratonen er ikke oppgitt ennå.",
+      "url": "https://www.studentbergen.com/events/bergen-city-marathon-2027/"
+    }
+  ]
+}

@@ -46,5 +46,7 @@
       "description": "Champions League, ligafasen, kamp 8 av 8. Bortekamp. Tidspunktet er norsk tid.",
       "url": "https://www.uefa.com/uefachampionsleague/fixtures-results/"
     }
-  ]
+  ],
+  "icon": "⚽",
+  "alarm_minutes": 60
 }

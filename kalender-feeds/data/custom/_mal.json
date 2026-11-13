@@ -10,8 +10,30 @@
   "coverage_note": "Valgfri merknad om hva som mangler.",
   "min_horizon_days": null,
   "events": [
-    {"id": "heldag", "title": "Eksempel: heldag", "start": "2027-03-05"},
-    {"id": "flere-dager", "title": "Eksempel: flere dager", "start": "2027-03-05", "end": "2027-03-07"},
-    {"id": "med-tid", "title": "Eksempel: med klokkeslett", "start": "2027-03-05T18:00", "tz": "Europe/Oslo", "minutes": 90, "description": "Valgfri tekst", "url": "https://eksempel.no/hendelse"}
-  ]
+    {
+      "id": "heldag",
+      "title": "Eksempel: heldag",
+      "start": "2027-03-05",
+      "icon": "⭐"
+    },
+    {
+      "id": "flere-dager",
+      "title": "Eksempel: flere dager",
+      "start": "2027-03-05",
+      "end": "2027-03-07"
+    },
+    {
+      "id": "med-tid",
+      "title": "Eksempel: med klokkeslett",
+      "start": "2027-03-05T18:00",
+      "tz": "Europe/Oslo",
+      "minutes": 90,
+      "description": "Valgfri tekst",
+      "url": "https://eksempel.no/hendelse"
+    }
+  ],
+  "icon": "🎯",
+  "in_combined": true,
+  "alarm_minutes": 60,
+  "alarm_minutes_all_day": null
 }

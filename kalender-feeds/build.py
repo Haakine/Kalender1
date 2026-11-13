@@ -16,6 +16,7 @@ import html
 import json
 import shutil
 import sys
+from dataclasses import replace
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -25,6 +26,21 @@ from calfeeds.ics import Event, render_calendar
 
 ROOT = Path(__file__).resolve().parent
 TEMPLATES = ROOT / "templates"
+
+
+def _decorate(feed, events: list[Event]) -> list[Event]:
+    """Legger feedens ikon og påminnelse på hendelsene (en hendelses eget ikon går foran)."""
+    out = []
+    for e in events:
+        alarm = feed.alarm_minutes_all_day if e.all_day else feed.alarm_minutes
+        out.append(
+            replace(
+                e,
+                icon=e.icon or feed.icon,
+                alarm_minutes=e.alarm_minutes if e.alarm_minutes is not None else alarm,
+            )
+        )
+    return out
 
 
 def collect(today: date, offline: bool):
@@ -39,8 +55,10 @@ def collect(today: date, offline: bool):
         if not offline and hasattr(feed.module, "refresh"):
             data, feed_notes = feed.module.refresh(data, today)
             notes += feed_notes
-        events = feed.module.build_events(data)
-        everything += events
+        built = feed.module.build_events(data, today) if getattr(feed.module, "USES_TODAY", False) else feed.module.build_events(data)
+        events = _decorate(feed, built)
+        if feed.in_combined:
+            everything += events
         results.append((feed, data, events))
     for feed in FEEDS:
         if feed.combined:
@@ -206,11 +224,18 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--out", default="site", help="Utmappe (standard: site)")
     parser.add_argument("--offline", action="store_true", help="Ikke hent oppdateringer fra nettet")
     parser.add_argument("--check-freshness", action="store_true", help="Sjekk at dataene dekker nok frem i tid")
+    parser.add_argument("--plan", action="store_true", help="Skriv ut treningsplanen med varigheter (til planlegging)")
     parser.add_argument("--today", help="Overstyr dagens dato (YYYY-MM-DD), brukes i tester")
     args = parser.parse_args(argv)
 
     now = datetime.now(timezone.utc).replace(microsecond=0)
     today = date.fromisoformat(args.today) if args.today else now.date()
+
+    if args.plan:
+        from calfeeds.feeds import DATA_DIR
+        from calfeeds.training import describe
+        print(describe(today, json.loads((DATA_DIR / "trening.json").read_text(encoding="utf-8"))))
+        return 0
 
     if args.check_freshness:
         results, _ = collect(today, offline=True)
