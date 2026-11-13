@@ -28,10 +28,10 @@
     return function (raw) {
       var title = feedId === "alle" ? raw.title : raw.short;
       if (raw.allDay) {
-        return { title: title, allDay: true, raw: raw.start, start: parseDay(raw.start), end: parseDay(raw.end) };
+        return { title: title, channel: raw.channel || "", allDay: true, raw: raw.start, start: parseDay(raw.start), end: parseDay(raw.end) };
       }
       var moment = new Date(raw.start);
-      return { title: title, allDay: false, raw: raw.start, start: moment, end: moment };
+      return { title: title, channel: raw.channel || "", allDay: false, raw: raw.start, start: moment, end: moment };
     };
   }
 
@@ -89,7 +89,7 @@
     var shown = ongoing ? now : first.start;
     text(card.querySelector(".js-day"), trimDot(dayFmt.format(shown)));
     text(card.querySelector(".js-month"), trimDot(monthFmt.format(shown)));
-    text(card.querySelector(".js-next"), (ongoing ? "Pågår: " : "Neste: ") + first.title + ", " + when(first));
+    text(card.querySelector(".js-next"), (ongoing ? "Pågår: " : "Neste: ") + first.title + (first.channel ? " (" + first.channel + ")" : "") + ", " + when(first));
 
     var list = card.querySelector(".js-upcoming");
     if (list) {
@@ -99,7 +99,7 @@
         time.setAttribute("datetime", e.raw);
         time.textContent = e.allDay ? dateFmt.format(e.start) : dateFmt.format(e.start) + " " + timeFmt.format(e.start);
         var title = document.createElement("span");
-        title.textContent = e.title;
+        title.textContent = e.title + (e.channel ? " (" + e.channel + ")" : "");
         li.appendChild(time);
         li.appendChild(title);
         list.appendChild(li);

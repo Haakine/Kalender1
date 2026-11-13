@@ -1,6 +1,7 @@
 import sys
 import unittest
 from datetime import date, datetime, timedelta, timezone
+from dataclasses import replace
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -603,3 +604,21 @@ class TrainingModel(unittest.TestCase):
 
     def test_race_feed_is_named_konkurranser(self):
         self.assertEqual(next(f for f in FEEDS if f.id == "konkurranser").name, "Konkurranser")
+
+
+class Channels(unittest.TestCase):
+    def test_channel_is_written_in_description_and_site_payload_only_when_set(self):
+        e = ics.Event(uid="a@x", start=date(2026, 11, 14), duration=timedelta(days=1), summary="X", description="Detalj", channel="TV 2")
+        text = ics.render_calendar(name="x", description="y", events=[e], color="#112233", now=NOW)
+        self.assertIn("DESCRIPTION:Sendes på: TV 2\\nDetalj", text.replace("\r\n ", ""))
+        self.assertEqual(build._event_payload(e)["channel"], "TV 2")
+        plain = replace(e, channel="")
+        self.assertNotIn("Sendes på", ics.render_calendar(name="x", description="y", events=[plain], color="#112233", now=NOW))
+        self.assertNotIn("channel", build._event_payload(plain))
+
+    def test_confirmed_channels_reach_the_feeds_and_training_has_none(self):
+        results, _ = build.collect(date(2026, 11, 13), offline=True)
+        by_id = {f.id: ev for f, _d, ev in results}
+        self.assertTrue(any(e.channel == "TV 2" and "Wales" in e.summary for e in by_id["fotball"]))
+        self.assertTrue(any(e.channel == "TV 2" for e in by_id["langrenn"]))
+        self.assertFalse(any(e.channel for e in by_id["trening"]))

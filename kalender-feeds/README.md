@@ -90,6 +90,7 @@ Se planen lokalt før noe pushes: `python3 build.py --plan --today ÅÅÅÅ-MM-D
 
 Valgfrie innstillinger øverst i filen:
 - `"icon": "⚽"` legger en emoji foran alle titler. En hendelse kan ha eget `"icon"`.
+- `"channel": "TV 2"` på en hendelse viser «Sendes på: TV 2» i beskrivelsen og på siden. Fyll det bare ut når kanalen er bekreftet. Fotball (`matches`) og langrenn (verdenscup-stopp, NM og VM) har samme felt.
 - `"alarm_minutes": 60` gir en påminnelse 60 minutter før hendelser med klokkeslett. `"alarm_minutes_all_day": -450` gir for heldagshendelser en påminnelse kl. 07:30 samme dag (negativt tall = etter midnatt). Ikke satt = ingen påminnelse.
 - `"in_combined": false` holder kalenderen utenfor «Alle hendelser». Treningsplanen bruker dette.
 
@@ -109,6 +110,8 @@ I begge tilfeller trenger du ikke røre nettsiden, workflowen eller samlekalende
 - *Varsler om forskningsrapporter:* en modul med `refresh` som leser en åpen RSS-feed og lager hendelser fra utgivelsesdatoene. Vil du ha push-varsler i tillegg, kan en ukentlig workflow sende til en gratis ntfy-kanal.
 - *Flere land eller lag:* kopier en eksisterende datafil og endre den.
 - *TV-kanal på sendinger:* legg et felt i datafilen og ta det med i beskrivelsen.
+
+- **TV-kanal:** Kanal er bare med der jeg fant den. Landskampene mot Wales og Danmark er TV 2 (fra én kilde, livesoccertv.com). Langrenn: TV 2 har Davos, Toblach, Lahti og ski-VM i Falun, NRK har Trondheim, Holmenkollen, Drammen og Ski-NM, etter TV 2s vinterpresentasjon. Kanalen innad i TV 2 og Champions League-kampene er ikke bekreftet, så de står uten kanal.
 
 ## Trygghet og personvern
 

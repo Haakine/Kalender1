@@ -100,6 +100,8 @@ def short_title(summary: str) -> str:
 
 def _event_payload(e: Event) -> dict:
     base = {"title": e.summary, "short": short_title(e.summary)}
+    if e.channel:
+        base["channel"] = e.channel
     if e.all_day:
         return {
             **base,

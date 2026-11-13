@@ -38,6 +38,8 @@ class Event:
     # Påminnelse, minutter før start. Negativt tall = etter start (for heldagshendelser er
     # start midnatt, så -450 gir en påminnelse kl. 07:30 samme dag). None = ingen påminnelse.
     alarm_minutes: int | None = None
+    # TV-kanal eller strøm, for eksempel «TV 2». Tom når kanalen ikke er bekreftet.
+    channel: str = ""
 
     @property
     def title(self) -> str:
@@ -111,8 +113,9 @@ def _event_lines(event: Event, now: datetime) -> list[str]:
             f"DTEND:{format_utc(event.start + event.duration)}",
         ]
     lines.append(f"SUMMARY:{escape_text(event.title)}")
-    if event.description:
-        lines.append(f"DESCRIPTION:{escape_text(event.description)}")
+    text = "\n".join(x for x in ((f"Sendes på: {event.channel}" if event.channel else ""), event.description) if x)
+    if text:
+        lines.append(f"DESCRIPTION:{escape_text(text)}")
     if event.url:
         if not event.url.startswith("https://") or re.search(r"\s", event.url):
             raise ValueError(f"Ugyldig URL: {event.url!r}")

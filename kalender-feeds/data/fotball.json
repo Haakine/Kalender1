@@ -10,7 +10,8 @@
       "home": "Norge",
       "away": "Wales",
       "competition": "UEFA Nations League, liga A",
-      "competition_short": "Nations League"
+      "competition_short": "Nations League",
+      "channel": "TV 2"
     },
     {
       "kickoff": "2026-11-17T20:45",
@@ -18,7 +19,8 @@
       "home": "Danmark",
       "away": "Norge",
       "competition": "UEFA Nations League, liga A",
-      "competition_short": "Nations League"
+      "competition_short": "Nations League",
+      "channel": "TV 2"
     }
   ]
 }

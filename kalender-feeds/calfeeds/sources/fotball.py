@@ -40,6 +40,7 @@ def build_events(data: dict) -> list[Event]:
                 summary=f"Fotball: {home}–{away} ({match['competition_short']})",
                 description="\n".join(lines),
                 url=data["source"],
+                channel=match.get("channel", ""),
             )
         )
     return events

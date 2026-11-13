@@ -32,6 +32,7 @@ def _world_cup(data: dict) -> list[Event]:
                         "Kilde: FIS"
                     ),
                     url=data["world_cup_url"],
+                    channel=race.get("channel") or stop.get("channel", ""),
                 )
             )
     return events
@@ -53,6 +54,7 @@ def _nm(data: dict) -> list[Event]:
                     "Kilde: Norges Skiforbunds sesonginformasjon 2026/27"
                 ),
                 url=data["nm_url"],
+                channel=item.get("channel", ""),
             )
         )
     return events
@@ -73,6 +75,7 @@ def _vm(data: dict) -> list[Event]:
                 "Kilde: " + vm["source_label"]
             ),
             url=vm["url"],
+            channel=vm.get("channel", ""),
         )
     ]
 
