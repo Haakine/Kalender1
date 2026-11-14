@@ -511,6 +511,14 @@ class TrainingModel(unittest.TestCase):
                 if s.kind == "long" and week.phase not in ("taper",):
                     self.assertIn(s.day.weekday(), (5, 6), s.title)  # langtur i helga
 
+    def test_extra_sessions_show_up_in_the_calendar(self):
+        from calfeeds import training
+        d = self.data()
+        d["extra"] = [{"date": "2026-11-14", "title": "SkiErg"}, {"date": "2026-11-01", "title": "Rolig løping"}]
+        got = {(s.day, s.title) for s in training.generate(self.TODAY, d)}
+        self.assertIn((date(2026, 11, 14), "SkiErg"), got)
+        self.assertNotIn((date(2026, 11, 1), "Rolig løping"), got)
+
     def test_upper_and_arms_never_next_to_push_or_pull(self):
         from calfeeds import training
         sessions = [s for _w, ss in self.plan() for s in ss]

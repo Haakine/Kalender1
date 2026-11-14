@@ -50,5 +50,19 @@
       ],
       "note": "Tilgang til langrenn"
     }
+  ],
+  "extra": [
+    {
+      "date": "2026-11-14",
+      "title": "SkiErg",
+      "kind": "aerobic",
+      "minutes": 45
+    },
+    {
+      "date": "2026-11-15",
+      "title": "Rolig løping",
+      "kind": "run",
+      "minutes": 30
+    }
   ]
 }

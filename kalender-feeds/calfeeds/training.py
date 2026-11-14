@@ -431,8 +431,21 @@ def plan_weeks(today: date, data: dict) -> list[tuple[Week, list[Session]]]:
     return out
 
 
+def _extras(today: date, data: dict) -> list[Session]:
+    """Enkeltøkter lagt inn for hånd i data/trening.json under «extra» (f.eks. før planen starter)."""
+    out = []
+    for e in data.get("extra", []):
+        day = date.fromisoformat(e["date"])
+        if day < monday(today):
+            continue
+        out.append(Session(day, e["title"], e.get("icon") or (I_RUN if "løp" in e["title"].lower() else I_SKI if "ski" in e["title"].lower() else I_STR),
+                           e.get("kind", "aerobic"), int(e.get("minutes", 45))))
+    return out
+
+
 def generate(today: date, data: dict) -> list[Session]:
-    return [s for _w, sessions in plan_weeks(today, data) for s in sessions]
+    return sorted([s for _w, sessions in plan_weeks(today, data) for s in sessions] + _extras(today, data),
+                  key=lambda s: (s.day, s.title))
 
 
 def describe(today: date, data: dict) -> str:
