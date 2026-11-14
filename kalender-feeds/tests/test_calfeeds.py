@@ -511,6 +511,15 @@ class TrainingModel(unittest.TestCase):
                 if s.kind == "long" and week.phase not in ("taper",):
                     self.assertIn(s.day.weekday(), (5, 6), s.title)  # langtur i helga
 
+    def test_upper_and_arms_never_next_to_push_or_pull(self):
+        from calfeeds import training
+        sessions = [s for _w, ss in self.plan() for s in ss]
+        for a in sessions:
+            for b in sessions:
+                ga, gb = training._muscle(a.title), training._muscle(b.title)
+                if ga and gb and ga != gb:
+                    self.assertGreater(abs((b.day - a.day).days), 1, (a.day, a.title, b.day, b.title))
+
     def test_return_weeks_are_gentle_and_hard_running_comes_late(self):
         weeks = self.plan()
         self.assertEqual([w.phase for w, _ in weeks[:3]], ["return"] * 3)

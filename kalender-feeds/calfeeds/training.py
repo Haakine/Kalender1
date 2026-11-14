@@ -299,8 +299,26 @@ def week_specs(week: Week, status: dict, quality_index: int) -> list[Spec]:
     return out
 
 
-def _penalty(days: list, specs: list[Spec], carry: bool, blocked: frozenset = frozenset()) -> int:
+def _muscle(title: str) -> str | None:
+    """Muskelgruppe for styrkeøkter. Upper/Arms (og 5RM-test) skal aldri ligge inntil Push/Pull."""
+    if title.startswith("Test: 5RM") or title in ("Styrke: Upper", "Styrke: Arms"):
+        return "UA"
+    if title in ("Styrke: Push", "Styrke: Pull"):
+        return "PP"
+    return None
+
+
+def _penalty(days: list, specs: list[Spec], carry: bool, blocked: frozenset = frozenset(),
+             prev_sunday: frozenset = frozenset()) -> int:
     p = 0
+    # Upper/Arms og Push/Pull trenger en hviledag imellom (samme dag eller dagen før/etter er ikke lov)
+    groups = [(d, _muscle(s.title)) for d, s in zip(days, specs) if d is not None and _muscle(s.title)]
+    for i, (d1, g1) in enumerate(groups):
+        for d2, g2 in groups[i + 1:]:
+            if g1 != g2 and abs(d1 - d2) <= 1:
+                p += 400
+        if d1 == 0 and prev_sunday and (prev_sunday - {g1}):
+            p += 400
     p += 2000 * sum(1 for d in days if d in blocked)  # konkurransedagen er ikke en treningsdag
     by_day: dict[int, list[int]] = {}
     for i, d in enumerate(days):
@@ -343,28 +361,29 @@ def _penalty(days: list, specs: list[Spec], carry: bool, blocked: frozenset = fr
     return p
 
 
-def schedule(specs: list[Spec], carry: bool = False, blocked: frozenset = frozenset()) -> list[int]:
+def schedule(specs: list[Spec], carry: bool = False, blocked: frozenset = frozenset(),
+             prev_sunday: frozenset = frozenset()) -> list[int]:
     """Velger dag (0 = mandag) for hver økt. Samme input gir alltid samme svar."""
     order = sorted(range(len(specs)), key=lambda i: (
         {"long": 0, "quality": 1, "legs": 2}.get(specs[i].kind, 3), -specs[i].minutes, i))
     days: list = [None] * len(specs)
     for i in order:
-        best = min(range(7), key=lambda d: (_penalty(days[:i] + [d] + days[i + 1:], specs, carry, blocked), d))
+        best = min(range(7), key=lambda d: (_penalty(days[:i] + [d] + days[i + 1:], specs, carry, blocked, prev_sunday), d))
         days[i] = best
-    score = _penalty(days, specs, carry, blocked)
+    score = _penalty(days, specs, carry, blocked, prev_sunday)
     for _ in range(40):
         improved = False
         for i in range(len(specs)):
             for d in range(7):
                 trial = days[:i] + [d] + days[i + 1:]
-                s = _penalty(trial, specs, carry, blocked)
+                s = _penalty(trial, specs, carry, blocked, prev_sunday)
                 if s < score:
                     days, score, improved = trial, s, True
         for i in range(len(specs)):
             for j in range(i + 1, len(specs)):
                 trial = list(days)
                 trial[i], trial[j] = trial[j], trial[i]
-                s = _penalty(trial, specs, carry, blocked)
+                s = _penalty(trial, specs, carry, blocked, prev_sunday)
                 if s < score:
                     days, score, improved = trial, s, True
         if not improved:
@@ -391,12 +410,13 @@ def plan_weeks(today: date, data: dict) -> list[tuple[Week, list[Session]]]:
     plan_start = date.fromisoformat(status["plan_start"])
     first = max(monday(today), monday(plan_start))
     last = first + timedelta(days=7 * (int(data.get("horizon_weeks", 13)) - 1))
-    out, quality_index, carry = [], 0, False
+    out, quality_index, carry, prev_sunday = [], 0, False, frozenset()
     for week in build_weeks(plan_start, last, goals, status, windows):
         specs = week_specs(week, status, quality_index)
         quality_index += sum(1 for s in specs if s.title in QUALITY_RUN)
         blocked = frozenset({week.goal.day.weekday()}) if week.phase == "taper" and week.goal else frozenset()
-        days = schedule(specs, carry, blocked)
+        days = schedule(specs, carry, blocked, prev_sunday)
+        prev_sunday = frozenset(g for s, d in zip(specs, days) if d == 6 and (g := _muscle(s.title)))
         carry = any(s.hard and d == 6 for s, d in zip(specs, days))
         sessions = []
         for s, d in sorted(zip(specs, days), key=lambda x: (x[1], x[0].kind != "strength", x[0].title)):
