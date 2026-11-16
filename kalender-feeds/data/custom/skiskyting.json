@@ -1,0 +1,648 @@
+{
+  "id": "skiskyting",
+  "name": "Skiskyting: verdenscup og VM",
+  "description": "Alle renn i verdenscupen 2026/27 og VM i Otepää, med starttid i norsk tid og TV-kanal.",
+  "color": "#6B3FA0",
+  "group": "Sport",
+  "source_label": "IBU-kalenderen via proxcskiing.com og snow-online.com, TV-kanaler fra TV 2s vinterpressemelding",
+  "source_url": "https://www.proxcskiing.com/biathlon/biathlon-world-cup-calendar-for-the-2026-2027-winter-season/",
+  "verified": "2026-11-16",
+  "coverage_note": "IBU kan endre starttider. VM-tidene i Otepää er regnet om fra arrangørens lokale tid.",
+  "min_horizon_days": null,
+  "events": [
+    {
+      "id": "kontiolahti-20km individual-men",
+      "title": "Skiskyting, Kontiolahti: 20 km normalprogram, menn",
+      "start": "2026-11-26T16:10",
+      "tz": "Europe/Oslo",
+      "minutes": 70,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Kontiolahti. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "kontiolahti-15km individual-women",
+      "title": "Skiskyting, Kontiolahti: 15 km normalprogram, kvinner",
+      "start": "2026-11-27T16:10",
+      "tz": "Europe/Oslo",
+      "minutes": 70,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Kontiolahti. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "kontiolahti-single mixed relay-mixed",
+      "title": "Skiskyting, Kontiolahti: singlemixed",
+      "start": "2026-11-28T13:10",
+      "tz": "Europe/Oslo",
+      "minutes": 50,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Kontiolahti. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "kontiolahti-mixed relay-mixed",
+      "title": "Skiskyting, Kontiolahti: mixedstafett",
+      "start": "2026-11-28T15:15",
+      "tz": "Europe/Oslo",
+      "minutes": 80,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Kontiolahti. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "kontiolahti-10km sprint-men",
+      "title": "Skiskyting, Kontiolahti: 10 km sprint, menn",
+      "start": "2026-11-29T13:00",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Kontiolahti. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "kontiolahti-7.5km sprint-women",
+      "title": "Skiskyting, Kontiolahti: 7,5 km sprint, kvinner",
+      "start": "2026-11-29T16:15",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Kontiolahti. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "hochfilzen-7.5km sprint-women",
+      "title": "Skiskyting, Hochfilzen: 7,5 km sprint, kvinner",
+      "start": "2026-12-04T11:25",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Hochfilzen. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "hochfilzen-10km sprint-men",
+      "title": "Skiskyting, Hochfilzen: 10 km sprint, menn",
+      "start": "2026-12-04T14:15",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Hochfilzen. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "hochfilzen-10km pursuit-women",
+      "title": "Skiskyting, Hochfilzen: 10 km jaktstart, kvinner",
+      "start": "2026-12-05T12:15",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Hochfilzen. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "hochfilzen-12.5km pursuit-men",
+      "title": "Skiskyting, Hochfilzen: 12,5 km jaktstart, menn",
+      "start": "2026-12-05T14:30",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Hochfilzen. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "hochfilzen-4x6km relay-women",
+      "title": "Skiskyting, Hochfilzen: 4x6 km stafett, kvinner",
+      "start": "2026-12-06T11:30",
+      "tz": "Europe/Oslo",
+      "minutes": 80,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Hochfilzen. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "hochfilzen-4x7.5km relay-men",
+      "title": "Skiskyting, Hochfilzen: 4x7,5 km stafett, menn",
+      "start": "2026-12-06T14:15",
+      "tz": "Europe/Oslo",
+      "minutes": 80,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Hochfilzen. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "annecy-le grand-bornand-7.5km sprint-women",
+      "title": "Skiskyting, Annecy-Le Grand-Bornand: 7,5 km sprint, kvinner",
+      "start": "2026-12-10T14:15",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Annecy-Le Grand-Bornand. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "annecy-le grand-bornand-10km sprint-men",
+      "title": "Skiskyting, Annecy-Le Grand-Bornand: 10 km sprint, menn",
+      "start": "2026-12-11T14:15",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Annecy-Le Grand-Bornand. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "annecy-le grand-bornand-10km pursuit-women",
+      "title": "Skiskyting, Annecy-Le Grand-Bornand: 10 km jaktstart, kvinner",
+      "start": "2026-12-12T12:15",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Annecy-Le Grand-Bornand. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "annecy-le grand-bornand-12.5km pursuit-men",
+      "title": "Skiskyting, Annecy-Le Grand-Bornand: 12,5 km jaktstart, menn",
+      "start": "2026-12-12T14:45",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Annecy-Le Grand-Bornand. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "annecy-le grand-bornand-12.5km mass start-women",
+      "title": "Skiskyting, Annecy-Le Grand-Bornand: 12,5 km fellesstart, kvinner",
+      "start": "2026-12-13T12:15",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Annecy-Le Grand-Bornand. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "annecy-le grand-bornand-15km mass start-men",
+      "title": "Skiskyting, Annecy-Le Grand-Bornand: 15 km fellesstart, menn",
+      "start": "2026-12-13T14:45",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Annecy-Le Grand-Bornand. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "pokljuka-10km sprint-men",
+      "title": "Skiskyting, Pokljuka: 10 km sprint, menn",
+      "start": "2027-01-02T11:25",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Pokljuka. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "pokljuka-7.5km sprint-women",
+      "title": "Skiskyting, Pokljuka: 7,5 km sprint, kvinner",
+      "start": "2027-01-02T14:10",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Pokljuka. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "pokljuka-4x7.5km relay-men",
+      "title": "Skiskyting, Pokljuka: 4x7,5 km stafett, menn",
+      "start": "2027-01-03T11:35",
+      "tz": "Europe/Oslo",
+      "minutes": 80,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Pokljuka. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "pokljuka-4x6km relay-women",
+      "title": "Skiskyting, Pokljuka: 4x6 km stafett, kvinner",
+      "start": "2027-01-03T14:15",
+      "tz": "Europe/Oslo",
+      "minutes": 80,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Pokljuka. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "ruhpolding-4x6km relay-women",
+      "title": "Skiskyting, Ruhpolding: 4x6 km stafett, kvinner",
+      "start": "2027-01-06T14:15",
+      "tz": "Europe/Oslo",
+      "minutes": 80,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Ruhpolding. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "ruhpolding-4x7.5km relay-men",
+      "title": "Skiskyting, Ruhpolding: 4x7,5 km stafett, menn",
+      "start": "2027-01-07T14:15",
+      "tz": "Europe/Oslo",
+      "minutes": 80,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Ruhpolding. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "ruhpolding-7.5km sprint-women",
+      "title": "Skiskyting, Ruhpolding: 7,5 km sprint, kvinner",
+      "start": "2027-01-08T14:15",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Ruhpolding. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "ruhpolding-10km sprint-men",
+      "title": "Skiskyting, Ruhpolding: 10 km sprint, menn",
+      "start": "2027-01-09T12:00",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Ruhpolding. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "ruhpolding-10km pursuit-women",
+      "title": "Skiskyting, Ruhpolding: 10 km jaktstart, kvinner",
+      "start": "2027-01-10T12:00",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Ruhpolding. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "ruhpolding-12.5km pursuit-men",
+      "title": "Skiskyting, Ruhpolding: 12,5 km jaktstart, menn",
+      "start": "2027-01-10T14:45",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Ruhpolding. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "antholz-anterselva-20km individual-men",
+      "title": "Skiskyting, Antholz-Anterselva: 20 km normalprogram, menn",
+      "start": "2027-01-14T14:15",
+      "tz": "Europe/Oslo",
+      "minutes": 70,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Antholz-Anterselva. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "antholz-anterselva-15km individual-women",
+      "title": "Skiskyting, Antholz-Anterselva: 15 km normalprogram, kvinner",
+      "start": "2027-01-15T14:15",
+      "tz": "Europe/Oslo",
+      "minutes": 70,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Antholz-Anterselva. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "antholz-anterselva-single mixed relay-mixed",
+      "title": "Skiskyting, Antholz-Anterselva: singlemixed",
+      "start": "2027-01-16T11:45",
+      "tz": "Europe/Oslo",
+      "minutes": 50,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Antholz-Anterselva. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "antholz-anterselva-mixed relay-mixed",
+      "title": "Skiskyting, Antholz-Anterselva: mixedstafett",
+      "start": "2027-01-16T14:30",
+      "tz": "Europe/Oslo",
+      "minutes": 80,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Antholz-Anterselva. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "antholz-anterselva-15km mass start-men",
+      "title": "Skiskyting, Antholz-Anterselva: 15 km fellesstart, menn",
+      "start": "2027-01-17T12:45",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Antholz-Anterselva. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "antholz-anterselva-12.5km mass start-women",
+      "title": "Skiskyting, Antholz-Anterselva: 12,5 km fellesstart, kvinner",
+      "start": "2027-01-17T15:00",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Antholz-Anterselva. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "nove mesto na morave-7.5km sprint-women",
+      "title": "Skiskyting, Nove Mesto na Morave: 7,5 km sprint, kvinner",
+      "start": "2027-01-21T16:30",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Nove Mesto na Morave. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "nove mesto na morave-10km sprint-men",
+      "title": "Skiskyting, Nove Mesto na Morave: 10 km sprint, menn",
+      "start": "2027-01-22T16:30",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Nove Mesto na Morave. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "nove mesto na morave-12.5km mass start-women",
+      "title": "Skiskyting, Nove Mesto na Morave: 12,5 km fellesstart, kvinner",
+      "start": "2027-01-23T14:45",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Nove Mesto na Morave. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "nove mesto na morave-4x7.5km relay-men",
+      "title": "Skiskyting, Nove Mesto na Morave: 4x7,5 km stafett, menn",
+      "start": "2027-01-23T17:00",
+      "tz": "Europe/Oslo",
+      "minutes": 80,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Nove Mesto na Morave. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "nove mesto na morave-4x6km relay-women",
+      "title": "Skiskyting, Nove Mesto na Morave: 4x6 km stafett, kvinner",
+      "start": "2027-01-24T14:35",
+      "tz": "Europe/Oslo",
+      "minutes": 80,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Nove Mesto na Morave. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "nove mesto na morave-15km mass start-men",
+      "title": "Skiskyting, Nove Mesto na Morave: 15 km fellesstart, menn",
+      "start": "2027-01-24T17:10",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Nove Mesto na Morave. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "otepää-mixed relay-mixed",
+      "title": "Skiskyting-VM, Otepää: mixedstafett",
+      "start": "2027-02-10T16:30",
+      "tz": "Europe/Oslo",
+      "minutes": 80,
+      "channel": "NRK",
+      "description": "VM i skiskyting i Otepää (Estland). Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "otepää-10km sprint-men",
+      "title": "Skiskyting-VM, Otepää: 10 km sprint, menn",
+      "start": "2027-02-12T16:30",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "VM i skiskyting i Otepää (Estland). Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "otepää-7.5km sprint-women",
+      "title": "Skiskyting-VM, Otepää: 7,5 km sprint, kvinner",
+      "start": "2027-02-13T17:00",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "VM i skiskyting i Otepää (Estland). Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "otepää-12.5km pursuit-men",
+      "title": "Skiskyting-VM, Otepää: 12,5 km jaktstart, menn",
+      "start": "2027-02-14T16:05",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "VM i skiskyting i Otepää (Estland). Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "otepää-10km pursuit-women",
+      "title": "Skiskyting-VM, Otepää: 10 km jaktstart, kvinner",
+      "start": "2027-02-14T18:30",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "VM i skiskyting i Otepää (Estland). Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "otepää-single mixed relay-mixed",
+      "title": "Skiskyting-VM, Otepää: singlemixed",
+      "start": "2027-02-16T17:10",
+      "tz": "Europe/Oslo",
+      "minutes": 50,
+      "channel": "TV 2",
+      "description": "VM i skiskyting i Otepää (Estland). Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "otepää-20km individual-men",
+      "title": "Skiskyting-VM, Otepää: 20 km normalprogram, menn",
+      "start": "2027-02-17T17:10",
+      "tz": "Europe/Oslo",
+      "minutes": 70,
+      "channel": "TV 2",
+      "description": "VM i skiskyting i Otepää (Estland). Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "otepää-15km individual-women",
+      "title": "Skiskyting-VM, Otepää: 15 km normalprogram, kvinner",
+      "start": "2027-02-18T17:10",
+      "tz": "Europe/Oslo",
+      "minutes": 70,
+      "channel": "TV 2",
+      "description": "VM i skiskyting i Otepää (Estland). Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "otepää-4x7.5km relay-men",
+      "title": "Skiskyting-VM, Otepää: 4x7,5 km stafett, menn",
+      "start": "2027-02-19T17:30",
+      "tz": "Europe/Oslo",
+      "minutes": 80,
+      "channel": "TV 2",
+      "description": "VM i skiskyting i Otepää (Estland). Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "otepää-4x6km relay-women",
+      "title": "Skiskyting-VM, Otepää: 4x6 km stafett, kvinner",
+      "start": "2027-02-20T17:30",
+      "tz": "Europe/Oslo",
+      "minutes": 80,
+      "channel": "TV 2",
+      "description": "VM i skiskyting i Otepää (Estland). Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "otepää-15km mass start-men",
+      "title": "Skiskyting-VM, Otepää: 15 km fellesstart, menn",
+      "start": "2027-02-21T15:45",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "VM i skiskyting i Otepää (Estland). Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "otepää-12.5km mass start-women",
+      "title": "Skiskyting-VM, Otepää: 12,5 km fellesstart, kvinner",
+      "start": "2027-02-21T18:10",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "VM i skiskyting i Otepää (Estland). Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "oberhof-10km sprint-men",
+      "title": "Skiskyting, Oberhof: 10 km sprint, menn",
+      "start": "2027-03-04T14:45",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Oberhof. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "oberhof-7.5km sprint-women",
+      "title": "Skiskyting, Oberhof: 7,5 km sprint, kvinner",
+      "start": "2027-03-05T14:10",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Oberhof. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "oberhof-12.5km pursuit-men",
+      "title": "Skiskyting, Oberhof: 12,5 km jaktstart, menn",
+      "start": "2027-03-06T13:45",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Oberhof. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "oberhof-10km pursuit-women",
+      "title": "Skiskyting, Oberhof: 10 km jaktstart, kvinner",
+      "start": "2027-03-06T16:00",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Oberhof. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "oberhof-4x7.5km relay-men",
+      "title": "Skiskyting, Oberhof: 4x7,5 km stafett, menn",
+      "start": "2027-03-07T12:45",
+      "tz": "Europe/Oslo",
+      "minutes": 80,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Oberhof. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "oberhof-4x6km relay-women",
+      "title": "Skiskyting, Oberhof: 4x6 km stafett, kvinner",
+      "start": "2027-03-07T15:50",
+      "tz": "Europe/Oslo",
+      "minutes": 80,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Oberhof. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "östersund-15km individual-women",
+      "title": "Skiskyting, Östersund: 15 km normalprogram, kvinner",
+      "start": "2027-03-11T16:10",
+      "tz": "Europe/Oslo",
+      "minutes": 70,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Östersund. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "östersund-20km individual-men",
+      "title": "Skiskyting, Östersund: 20 km normalprogram, menn",
+      "start": "2027-03-12T16:10",
+      "tz": "Europe/Oslo",
+      "minutes": 70,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Östersund. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "östersund-single mixed relay-mixed",
+      "title": "Skiskyting, Östersund: singlemixed",
+      "start": "2027-03-13T14:30",
+      "tz": "Europe/Oslo",
+      "minutes": 50,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Östersund. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "östersund-mixed relay-mixed",
+      "title": "Skiskyting, Östersund: mixedstafett",
+      "start": "2027-03-13T17:10",
+      "tz": "Europe/Oslo",
+      "minutes": 80,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Östersund. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "östersund-12.5km mass start-women",
+      "title": "Skiskyting, Östersund: 12,5 km fellesstart, kvinner",
+      "start": "2027-03-14T14:30",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Östersund. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "östersund-15km mass start-men",
+      "title": "Skiskyting, Östersund: 15 km fellesstart, menn",
+      "start": "2027-03-14T17:10",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "NRK",
+      "description": "Verdenscup i skiskyting, Östersund. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "holmenkollen-10km sprint-men",
+      "title": "Skiskyting, Holmenkollen: 10 km sprint, menn",
+      "start": "2027-03-18T16:30",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Holmenkollen. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "holmenkollen-7.5km sprint-women",
+      "title": "Skiskyting, Holmenkollen: 7,5 km sprint, kvinner",
+      "start": "2027-03-19T16:30",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Holmenkollen. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "holmenkollen-12.5km pursuit-men",
+      "title": "Skiskyting, Holmenkollen: 12,5 km jaktstart, menn",
+      "start": "2027-03-20T14:45",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Holmenkollen. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "holmenkollen-10km pursuit-women",
+      "title": "Skiskyting, Holmenkollen: 10 km jaktstart, kvinner",
+      "start": "2027-03-20T17:00",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Holmenkollen. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "holmenkollen-15km mass start-men",
+      "title": "Skiskyting, Holmenkollen: 15 km fellesstart, menn",
+      "start": "2027-03-21T13:30",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Holmenkollen. Starttid i norsk tid. Tidene kan endres."
+    },
+    {
+      "id": "holmenkollen-12.5km mass start-women",
+      "title": "Skiskyting, Holmenkollen: 12,5 km fellesstart, kvinner",
+      "start": "2027-03-21T16:00",
+      "tz": "Europe/Oslo",
+      "minutes": 45,
+      "channel": "TV 2",
+      "description": "Verdenscup i skiskyting, Holmenkollen. Starttid i norsk tid. Tidene kan endres."
+    }
+  ],
+  "icon": "🎯",
+  "in_combined": true,
+  "alarm_minutes": null,
+  "alarm_minutes_all_day": null
+}
