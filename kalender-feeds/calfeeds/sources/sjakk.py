@@ -6,12 +6,14 @@ heldagshendelser. Flere turneringer legges til i data/sjakk.json.
 
 from __future__ import annotations
 
-from datetime import date, timedelta
+from datetime import date, datetime, time, timedelta
+from zoneinfo import ZoneInfo
 
 from ..fmt import nb_date, nb_span, slug
 from ..ics import Event
 
 ONE_DAY = timedelta(days=1)
+OSLO = ZoneInfo("Europe/Oslo")
 NO_TIME = "Starttid er ikke publisert i kildene. Sjekk FIDE."
 
 
@@ -88,5 +90,26 @@ def _other(data: dict) -> list[Event]:
     return events
 
 
+def _sessions(data: dict) -> list[Event]:
+    """Enkeltdager med klokkeslett (norsk tid), f.eks. sluttspillet i Total Chess."""
+    events = []
+    for item in data.get("sessions", []):
+        d = date.fromisoformat(item["date"])
+        hh, mm = (int(x) for x in item["time"].split(":"))
+        start = datetime.combine(d, time(hh, mm), tzinfo=OSLO)
+        events.append(
+            Event(
+                uid=f"sjakk-{slug(item['id'])}-{d.isoformat()}@kalender-feeds",
+                start=start,
+                duration=timedelta(minutes=int(item.get("minutes", 180))),
+                summary=f"Sjakk: {item['title']}",
+                description=f"{item['detail']}\nKilde: {item['source_label']}",
+                url=item["url"],
+                channel=item.get("channel", ""),
+            )
+        )
+    return events
+
+
 def build_events(data: dict) -> list[Event]:
-    return _world_championship(data) + _other(data)
+    return _world_championship(data) + _other(data) + _sessions(data)

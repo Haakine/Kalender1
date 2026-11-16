@@ -1,6 +1,6 @@
 {
   "source": "https://www.fide.com/salesforce-fide-world-championship-match-2026-schedule-format-and-prize-fund-confirmed/",
-  "verified": "2026-11-11",
+  "verified": "2026-11-16",
   "coverage_note": "Tata Steel og Norway Chess 2027 er ikke med ennå, fordi bekreftede datoer ikke var tilgjengelige.",
   "world_championship": {
     "url": "https://www.fide.com/salesforce-fide-world-championship-match-2026-schedule-format-and-prize-fund-confirmed/",
@@ -26,14 +26,52 @@
     ]
   },
   "events": [
+    {"id": "fide-rapid-blitz-2026", "title": "VM i rapid og blitz", "place": "Istanbul", "start": "2026-12-25", "end": "2026-12-30", "url": "https://www.fide.com/fide-circuit-2026-2027/", "source_label": "FIDE"}
+  ],
+  "sessions": [
     {
-      "id": "fide-rapid-blitz-2026",
-      "title": "VM i rapid og blitz",
-      "place": "Istanbul",
-      "start": "2026-12-25",
-      "end": "2026-12-30",
-      "url": "https://www.fide.com/fide-circuit-2026-2027/",
-      "source_label": "FIDE"
+      "id": "total-chess-semi-1",
+      "date": "2026-11-17",
+      "time": "15:00",
+      "minutes": 390,
+      "title": "Total Chess, semifinaler dag 1",
+      "detail": "Semifinaler: Vachier-Lagrave mot Giri og Firouzja mot Caruana. Total Chess World Championship Tour Pilot i Budapest. Blitz kl. 15:00, rapid kl. 16:15 og fast classic kl. 18:45 (norsk tid). Står det likt etter to dager, avgjøres matchen med armageddon.",
+      "url": "https://www.totalchess.com/tournaments/budapest-2026",
+      "source_label": "Total Chess og World Chess",
+      "channel": "TV 2"
+    },
+    {
+      "id": "total-chess-semi-2",
+      "date": "2026-11-18",
+      "time": "15:00",
+      "minutes": 390,
+      "title": "Total Chess, semifinaler dag 2",
+      "detail": "Semifinaler: Vachier-Lagrave mot Giri og Firouzja mot Caruana. Total Chess World Championship Tour Pilot i Budapest. Blitz kl. 15:00, rapid kl. 16:15 og fast classic kl. 18:45 (norsk tid). Står det likt etter to dager, avgjøres matchen med armageddon.",
+      "url": "https://www.totalchess.com/tournaments/budapest-2026",
+      "source_label": "Total Chess og World Chess",
+      "channel": "TV 2"
+    },
+    {
+      "id": "total-chess-finale-1",
+      "date": "2026-11-19",
+      "time": "15:00",
+      "minutes": 390,
+      "title": "Total Chess, finale dag 1",
+      "detail": "Finale og bronsefinale. Total Chess World Championship Tour Pilot i Budapest. Blitz kl. 15:00, rapid kl. 16:15 og fast classic kl. 18:45 (norsk tid). Står det likt etter to dager, avgjøres matchen med armageddon.",
+      "url": "https://www.totalchess.com/tournaments/budapest-2026",
+      "source_label": "Total Chess og World Chess",
+      "channel": "TV 2"
+    },
+    {
+      "id": "total-chess-finale-2",
+      "date": "2026-11-20",
+      "time": "15:00",
+      "minutes": 390,
+      "title": "Total Chess, finale dag 2",
+      "detail": "Finale og bronsefinale. Vinneren kåres. Total Chess World Championship Tour Pilot i Budapest. Blitz kl. 15:00, rapid kl. 16:15 og fast classic kl. 18:45 (norsk tid). Står det likt etter to dager, avgjøres matchen med armageddon.",
+      "url": "https://www.totalchess.com/tournaments/budapest-2026",
+      "source_label": "Total Chess og World Chess",
+      "channel": "TV 2"
     }
   ]
 }
