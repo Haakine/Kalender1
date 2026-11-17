@@ -425,10 +425,19 @@ def plan_weeks(today: date, data: dict) -> list[tuple[Week, list[Session]]]:
             if any(w.start <= day <= w.end and "ski" in w.modes for w in windows):
                 item = _on_snow(item)
             if day >= plan_start:
-                sessions.append(item)
+                sessions.append(_moved(item, data))
+        sessions.sort(key=lambda x: x.day)
         if week.monday >= first:
             out.append((week, sessions))
     return out
+
+
+def _moved(s: Session, data: dict) -> Session:
+    """Flytter en planlagt økt til en annen dag etter data/trening.json «moves» ({from, to, title})."""
+    for m in data.get("moves", []):
+        if s.day.isoformat() == m["from"] and s.title == m["title"]:
+            return replace(s, day=date.fromisoformat(m["to"]))
+    return s
 
 
 def _extras(today: date, data: dict) -> list[Session]:

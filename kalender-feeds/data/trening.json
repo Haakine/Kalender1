@@ -51,6 +51,11 @@
       "note": "Tilgang til langrenn"
     }
   ],
+  "moves": [
+    {"from": "2026-11-16", "to": "2026-11-18", "title": "Styrke: Bein"},
+    {"from": "2026-11-17", "to": "2026-11-19", "title": "Styrke: Upper"},
+    {"from": "2026-11-19", "to": "2026-11-21", "title": "Styrke: Pull"}
+  ],
   "extra": [
     {
       "date": "2026-11-15",

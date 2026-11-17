@@ -519,6 +519,14 @@ class TrainingModel(unittest.TestCase):
         self.assertIn((date(2026, 11, 14), "SkiErg"), got)
         self.assertNotIn((date(2026, 11, 1), "Rolig løping"), got)
 
+    def test_moved_sessions_change_day(self):
+        from calfeeds import training
+        d = self.data()
+        d["moves"] = [{"from": "2026-11-16", "to": "2026-11-18", "title": "Styrke: Bein"}]
+        got = {(s.day, s.title) for s in training.generate(date(2026, 11, 16), d)}
+        self.assertIn((date(2026, 11, 18), "Styrke: Bein"), got)
+        self.assertNotIn((date(2026, 11, 16), "Styrke: Bein"), got)
+
     def test_upper_and_arms_never_next_to_push_or_pull(self):
         from calfeeds import training
         sessions = [s for _w, ss in self.plan() for s in ss]
