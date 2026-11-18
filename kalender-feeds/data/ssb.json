@@ -1,16 +1,72 @@
 {
   "source": "https://www.ssb.no/en/kommende-publiseringer",
-  "verified": "2026-11-11",
-  "coverage_note": "SSBs kalender viser publiseringer til og med 9. februar 2027.",
+  "verified": "2026-11-18",
+  "coverage_note": "SSBs kalender viser publiseringer til og med 15. februar 2027. Nav har publisert datoer for registrert ledighet til og med desember 2026.",
   "releases": [
-    {"date": "2026-11-25", "series": "aku", "period": "oktober 2026"},
-    {"date": "2026-12-09", "series": "ppi", "period": "november 2026"},
-    {"date": "2026-12-10", "series": "kpi", "period": "november 2026"},
-    {"date": "2026-12-14", "series": "konj", "period": "prognoser 2026–2029"},
-    {"date": "2026-12-22", "series": "aku", "period": "november 2026"},
-    {"date": "2027-01-11", "series": "kpi", "period": "desember 2026"},
-    {"date": "2027-01-11", "series": "ppi", "period": "desember 2026"},
-    {"date": "2027-01-26", "series": "aku", "period": "desember 2026"},
-    {"date": "2027-02-09", "series": "ppi", "period": "januar 2027"}
+    {
+      "date": "2026-11-25",
+      "series": "aku",
+      "period": "oktober 2026"
+    },
+    {
+      "date": "2026-11-27",
+      "series": "nav",
+      "period": "november 2026"
+    },
+    {
+      "date": "2026-12-09",
+      "series": "ppi",
+      "period": "november 2026"
+    },
+    {
+      "date": "2026-12-10",
+      "series": "kpi",
+      "period": "november 2026"
+    },
+    {
+      "date": "2026-12-14",
+      "series": "konj",
+      "period": "prognoser 2026–2029"
+    },
+    {
+      "date": "2026-12-18",
+      "series": "nav",
+      "period": "desember 2026"
+    },
+    {
+      "date": "2026-12-22",
+      "series": "aku",
+      "period": "november 2026"
+    },
+    {
+      "date": "2027-01-11",
+      "series": "kpi",
+      "period": "desember 2026"
+    },
+    {
+      "date": "2027-01-11",
+      "series": "ppi",
+      "period": "desember 2026"
+    },
+    {
+      "date": "2027-01-26",
+      "series": "aku",
+      "period": "desember 2026"
+    },
+    {
+      "date": "2027-02-09",
+      "series": "ppi",
+      "period": "januar 2027"
+    },
+    {
+      "date": "2027-02-11",
+      "series": "aku",
+      "period": "4. kvartal 2026"
+    },
+    {
+      "date": "2027-02-11",
+      "series": "kpi",
+      "period": "januar 2027"
+    }
   ]
 }

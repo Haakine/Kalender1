@@ -116,16 +116,25 @@ class DataSanity(unittest.TestCase):
             d = date.fromisoformat(m["date"])
             self.assertEqual(m["ppr"], d.month in norges_bank.PPR_MONTHS, m["date"])
 
-    def test_fomc_is_two_day_tue_wed_and_minutes_after_21_days(self):
+    def test_fomc_is_two_day_tue_wed_and_no_minutes(self):
         data = load_data(next(f for f in FEEDS if f.id == "fed"))
         for m in data["meetings"]:
             s, e = date.fromisoformat(m["start"]), date.fromisoformat(m["end"])
             self.assertEqual((s.weekday(), e.weekday(), (e - s).days), (1, 2, 1), m)
-        events = {e.uid: e for e in fed.build_events(data)}
-        minutes = events["fomc-referat-2026-10-28@kalender-feeds"]
-        self.assertEqual(minutes.start.date(), date(2026, 11, 18))  # stemmer med Reuters/Fed-oversikten
-        minutes = events["fomc-referat-2026-12-09@kalender-feeds"]
-        self.assertEqual(minutes.start.date(), date(2026, 12, 30))
+        events = fed.build_events(data)
+        self.assertFalse([e for e in events if "referat" in e.uid])
+
+    def test_jobs_report_at_0830_eastern(self):
+        data = load_data(next(f for f in FEEDS if f.id == "fed"))
+        jobs = [e for e in fed.build_events(data) if e.uid.startswith("usa-jobbtall-")]
+        self.assertTrue(jobs)
+        for e in jobs:
+            self.assertEqual((e.start.hour, e.start.minute), (8, 30))
+            self.assertEqual(str(e.start.tzinfo), "America/New_York")
+
+    def test_regional_network_events(self):
+        rn = [e for e in events_of("norges-bank") if "regionalt-nettverk" in e.uid]
+        self.assertTrue(any(e.start.date() == date(2026, 12, 10) for e in rn))
 
     def test_ssb_series_known(self):
         for item in load_data(next(f for f in FEEDS if f.id == "ssb"))["releases"]:

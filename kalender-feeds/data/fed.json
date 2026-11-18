@@ -1,16 +1,119 @@
 {
   "source": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm",
-  "verified": "2026-11-11",
+  "verified": "2026-11-18",
   "meetings": [
-    {"start": "2026-10-27", "end": "2026-10-28", "sep": false, "minutes": true},
-    {"start": "2026-12-08", "end": "2026-12-09", "sep": true, "minutes": true},
-    {"start": "2027-01-26", "end": "2027-01-27", "sep": false, "minutes": true, "tentative": true},
-    {"start": "2027-03-16", "end": "2027-03-17", "sep": true, "minutes": true, "tentative": true},
-    {"start": "2027-04-27", "end": "2027-04-28", "sep": false, "minutes": true, "tentative": true},
-    {"start": "2027-06-08", "end": "2027-06-09", "sep": true, "minutes": true, "tentative": true},
-    {"start": "2027-07-27", "end": "2027-07-28", "sep": false, "minutes": true, "tentative": true},
-    {"start": "2027-09-14", "end": "2027-09-15", "sep": true, "minutes": true, "tentative": true},
-    {"start": "2027-10-26", "end": "2027-10-27", "sep": false, "minutes": true, "tentative": true},
-    {"start": "2027-12-07", "end": "2027-12-08", "sep": true, "minutes": true, "tentative": true}
-  ]
+    {
+      "start": "2026-10-27",
+      "end": "2026-10-28",
+      "sep": false
+    },
+    {
+      "start": "2026-12-08",
+      "end": "2026-12-09",
+      "sep": true
+    },
+    {
+      "start": "2027-01-26",
+      "end": "2027-01-27",
+      "sep": false,
+      "tentative": true
+    },
+    {
+      "start": "2027-03-16",
+      "end": "2027-03-17",
+      "sep": true,
+      "tentative": true
+    },
+    {
+      "start": "2027-04-27",
+      "end": "2027-04-28",
+      "sep": false,
+      "tentative": true
+    },
+    {
+      "start": "2027-06-08",
+      "end": "2027-06-09",
+      "sep": true,
+      "tentative": true
+    },
+    {
+      "start": "2027-07-27",
+      "end": "2027-07-28",
+      "sep": false,
+      "tentative": true
+    },
+    {
+      "start": "2027-09-14",
+      "end": "2027-09-15",
+      "sep": true,
+      "tentative": true
+    },
+    {
+      "start": "2027-10-26",
+      "end": "2027-10-27",
+      "sep": false,
+      "tentative": true
+    },
+    {
+      "start": "2027-12-07",
+      "end": "2027-12-08",
+      "sep": true,
+      "tentative": true
+    }
+  ],
+  "jobs": [
+    {
+      "date": "2026-12-04",
+      "month": "november 2026"
+    },
+    {
+      "date": "2027-01-08",
+      "month": "desember 2026"
+    },
+    {
+      "date": "2027-02-05",
+      "month": "januar 2027"
+    },
+    {
+      "date": "2027-03-05",
+      "month": "februar 2027"
+    },
+    {
+      "date": "2027-04-02",
+      "month": "mars 2027"
+    },
+    {
+      "date": "2027-05-07",
+      "month": "april 2027"
+    },
+    {
+      "date": "2027-06-04",
+      "month": "mai 2027"
+    },
+    {
+      "date": "2027-07-02",
+      "month": "juni 2027"
+    },
+    {
+      "date": "2027-08-06",
+      "month": "juli 2027"
+    },
+    {
+      "date": "2027-09-03",
+      "month": "august 2027"
+    },
+    {
+      "date": "2027-10-08",
+      "month": "september 2027"
+    },
+    {
+      "date": "2027-11-05",
+      "month": "oktober 2027"
+    },
+    {
+      "date": "2027-12-03",
+      "month": "november 2027"
+    }
+  ],
+  "jobs_source": "https://www.bls.gov/schedule/news_release/empsit.htm"
 }

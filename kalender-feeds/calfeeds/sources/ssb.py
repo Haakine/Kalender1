@@ -34,7 +34,12 @@ SERIES = {
         "SSB: Konjunkturtendensene ({period})",
         "https://www.ssb.no/en/nasjonalregnskap-og-konjunkturer/konjunkturer/statistikk/konjunkturtendensene",
     ),
+    "nav": (
+        "Nav: Registrert ledighet for {period}",
+        "https://www.nav.no/no/nav-og-samfunn/statistikk/arbeidssokere-og-stillinger-statistikk/hovedtall-om-arbeidsmarkedet",
+    ),
 }
+SOURCE = {"nav": "Navs publiseringskalender (Hovedtall om arbeidsmarkedet)."}
 
 
 def build_events(data: dict) -> list[Event]:
@@ -50,7 +55,7 @@ def build_events(data: dict) -> list[Event]:
                 summary=title.format(period=item["period"]),
                 description=(
                     f"Publiseres {nb_date(d)} kl. 08:00 norsk tid.\n"
-                    "Kilde: SSBs kalender over kommende publiseringer."
+                    "Kilde: " + SOURCE.get(item["series"], "SSBs kalender over kommende publiseringer.")
                 ),
                 url=url,
             )

@@ -1,4 +1,4 @@
-"""Norges Bank: rentemøter.
+"""Norges Bank: rentemøter og Regionalt nettverk.
 
 Datoene lagres i data/norges_bank.json. Under bygging i GitHub Actions
 oppdateres de fra Norges Banks egen kalenderside, hvis siden kan hentes.
@@ -19,6 +19,7 @@ from ..ics import Event
 
 TZ = ZoneInfo("Europe/Oslo")
 LIST_URL = "https://www.norges-bank.no/aktuelt/kalender/rentemoter/"
+RN_URL = "https://www.norges-bank.no/aktuelt/kalender/"
 # Pengepolitisk rapport kommer på møtene i mars, juni, september og desember.
 PPR_MONTHS = {3, 6, 9, 12}
 # Datoen i lenkene har tosifret år og måned, men dagen kan ha ett eller to sifre.
@@ -109,6 +110,21 @@ def build_events(data: dict) -> list[Event]:
                 summary=summary,
                 description="\n".join(lines),
                 url=LIST_URL,
+            )
+        )
+    for item in data.get("regional_network", []):
+        d = date.fromisoformat(item["date"])
+        events.append(
+            Event(
+                uid=f"norgesbank-regionalt-nettverk-{d.isoformat()}@kalender-feeds",
+                start=datetime.combine(d, time(10, 0), tzinfo=TZ),
+                duration=timedelta(minutes=30),
+                summary=f"Norges Bank: Regionalt nettverk {item['number']}",
+                description=(
+                    f"Rapporten fra Norges Banks regionale nettverk ({item['number']}), {nb_date(d)} kl. 10:00 norsk tid. "
+                    "Kommer vanligvis en uke før rentemøtet med Pengepolitisk rapport.\nKilde: Norges Banks kalender."
+                ),
+                url=RN_URL,
             )
         )
     return events

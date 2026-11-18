@@ -1,9 +1,8 @@
-"""Federal Reserve: FOMC-rentemøter og referater (minutes).
+"""USA: FOMC-rentemøter og jobbtallene (Employment Situation).
 
-Datoene kommer fra https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm.
-Renteavgjørelsen kommer kl. 14:00 Eastern Time andre møtedag. Referatet
-publiseres tre uker etter avgjørelsen (regelen står på Fed sin egen side),
-så vi beregner den datoen i stedet for å lagre den.
+FOMC-datoene kommer fra https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm.
+Renteavgjørelsen kommer kl. 14:00 Eastern Time andre møtedag.
+Jobbtallene publiseres av BLS kl. 08:30 Eastern Time, etter BLS' publiseringskalender.
 """
 
 from __future__ import annotations
@@ -16,6 +15,7 @@ from ..ics import Event
 
 TZ = ZoneInfo("America/New_York")
 SOURCE_URL = "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+JOBS_URL = "https://www.bls.gov/schedule/news_release/empsit.htm"
 
 
 def build_events(data: dict) -> list[Event]:
@@ -50,20 +50,19 @@ def build_events(data: dict) -> list[Event]:
             )
         )
 
-        if meeting.get("minutes"):
-            minutes_day = end + timedelta(days=21)
-            events.append(
-                Event(
-                    uid=f"fomc-referat-{end.isoformat()}@kalender-feeds",
-                    start=datetime.combine(minutes_day, time(14, 0), tzinfo=TZ),
-                    duration=timedelta(minutes=30),
-                    summary="Fed: Referat fra FOMC-møtet (minutes)",
-                    description=(
-                        f"Referat fra FOMC-møtet {span}, kl. 14:00 ET.\n"
-                        "Datoen er beregnet: Fed publiserer referatet tre uker etter renteavgjørelsen.\n"
-                        "Kilde: federalreserve.gov"
-                    ),
-                    url=SOURCE_URL,
-                )
+    for item in data.get("jobs", []):
+        d = date.fromisoformat(item["date"])
+        events.append(
+            Event(
+                uid=f"usa-jobbtall-{d.isoformat()}@kalender-feeds",
+                start=datetime.combine(d, time(8, 30), tzinfo=TZ),
+                duration=timedelta(minutes=30),
+                summary="USA: Jobbtall (Employment Situation)",
+                description=(
+                    f"Sysselsettingsrapporten for {item['month']} (nonfarm payrolls og arbeidsledighet), "
+                    "kl. 08:30 amerikansk østkysttid (ET).\nKilde: Bureau of Labor Statistics (BLS)"
+                ),
+                url=JOBS_URL,
             )
+        )
     return events
