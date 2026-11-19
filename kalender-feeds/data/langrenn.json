@@ -257,5 +257,62 @@
       "race": "lagsprint, fri teknikk",
       "channel": "NRK"
     }
+  ],
+  "other": [
+    {
+      "id": "beito-10k-k",
+      "date": "2026-11-20",
+      "time": "11:10",
+      "minutes": 75,
+      "title": "Langrenn, sesongåpning Beitostølen: 10 km klassisk, kvinner",
+      "detail": "Beitosprinten, intervallstart. Menn starter kl. 13:00. Programmet er foreløpig og kan endres.",
+      "url": "https://www.beitostolenstadion.no/beitosprinten/",
+      "source_label": "Beitostølen stadion (foreløpig program), NRK sender ifølge TV 2s vinterpressemelding",
+      "channel": "NRK"
+    },
+    {
+      "id": "beito-10k-m",
+      "date": "2026-11-20",
+      "time": "13:00",
+      "minutes": 75,
+      "title": "Langrenn, sesongåpning Beitostølen: 10 km klassisk, menn",
+      "detail": "Beitosprinten, intervallstart. Programmet er foreløpig og kan endres.",
+      "url": "https://www.beitostolenstadion.no/beitosprinten/",
+      "source_label": "Beitostølen stadion (foreløpig program), NRK sender ifølge TV 2s vinterpressemelding",
+      "channel": "NRK"
+    },
+    {
+      "id": "beito-sprint",
+      "date": "2026-11-21",
+      "time": "09:30",
+      "minutes": 255,
+      "title": "Langrenn, sesongåpning Beitostølen: sprint klassisk",
+      "detail": "Prolog kvinner kl. 09:30 og menn kl. 10:10, heat fra kl. 12:00, finaler kl. 13:17 (kvinner) og 13:30 (menn). Programmet er foreløpig og kan endres.",
+      "url": "https://www.beitostolenstadion.no/beitosprinten/",
+      "source_label": "Beitostølen stadion (foreløpig program), NRK sender ifølge TV 2s vinterpressemelding",
+      "channel": "NRK"
+    },
+    {
+      "id": "beito-15k-k",
+      "date": "2026-11-22",
+      "time": "10:30",
+      "minutes": 90,
+      "title": "Langrenn, sesongåpning Beitostølen: 15 km fri, kvinner",
+      "detail": "Beitosprinten, intervallstart. Menn starter kl. 13:00. Programmet er foreløpig og kan endres.",
+      "url": "https://www.beitostolenstadion.no/beitosprinten/",
+      "source_label": "Beitostølen stadion (foreløpig program), NRK sender ifølge TV 2s vinterpressemelding",
+      "channel": "NRK"
+    },
+    {
+      "id": "beito-15k-m",
+      "date": "2026-11-22",
+      "time": "13:00",
+      "minutes": 90,
+      "title": "Langrenn, sesongåpning Beitostølen: 15 km fri, menn",
+      "detail": "Beitosprinten, intervallstart. Programmet er foreløpig og kan endres.",
+      "url": "https://www.beitostolenstadion.no/beitosprinten/",
+      "source_label": "Beitostølen stadion (foreløpig program), NRK sender ifølge TV 2s vinterpressemelding",
+      "channel": "NRK"
+    }
   ]
 }
